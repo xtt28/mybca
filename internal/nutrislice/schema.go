@@ -16,6 +16,10 @@ type MenuWeek struct {
 	Days        []MenuDay `json:"days"`
 }
 
+func (w *MenuWeek) GetTodayData() MenuDay {
+	return w.Days[time.Now().Weekday()]
+}
+
 type MenuDay struct {
 	Date      string     `json:"date"`
 	MenuItems []MenuItem `json:"menu_items"`

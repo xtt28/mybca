@@ -1,0 +1,14 @@
+package components
+
+templ header(title string) {
+    <head>
+        <title>{ title }</title>
+    </head>
+}
+
+templ pageLayout(title string) {
+    <html lang="en">
+        @header(title)
+        { children... }
+    </html>
+}

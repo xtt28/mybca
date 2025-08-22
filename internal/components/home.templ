@@ -1,0 +1,20 @@
+package components
+
+import "github.com/xtt28/mybca/internal/nutrislice"
+
+type HomePageCtx struct {
+    Greeting string
+    Town string
+    BusLocation string
+    LunchMenuItems []nutrislice.MenuItem
+}
+
+templ HomePage(hp HomePageCtx) {
+    @pageLayout("myBCA") {
+        <h1>{ hp.Greeting }</h1>
+        <h2>Bus for { hp.Town }</h2>
+        <p>{ hp.BusLocation }</p>
+        <h2>Lunch today</h2>
+        @lunchOverview(hp.LunchMenuItems)
+    }
+}

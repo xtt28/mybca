@@ -21,9 +21,9 @@ func (p *NutrisliceMockProvider) Get() (*MenuWeek, error) {
 
 	week := &MenuWeek{
 		StartDate: sunday.Format("2006-01-02"),
-		Days: make([]MenuDay, 5),
+		Days: make([]MenuDay, 7),
 	}
-	for i := range 5 {
+	for i := range 7 {
 		date := sunday.Add(time.Duration(i) * 24 * time.Hour)
 		dateFormatted := date.Format("2006-01-02")
 		day := MenuDay{Date: dateFormatted, MenuItems: make([]MenuItem, 9)}

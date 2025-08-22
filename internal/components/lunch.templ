@@ -1,0 +1,25 @@
+package components
+
+import "github.com/xtt28/mybca/internal/nutrislice"
+
+templ lunchOverview(items []nutrislice.MenuItem) {
+    {{ inList := false }}
+
+    <div>
+    for _, item := range items {
+        if item.IsSectionTitle || item.IsStationHeader {
+            if inList {
+                {{ inList = false }}
+                @templ.Raw("</ul>")
+            }
+            <h3>{ item.Text }</h3>
+        } else {
+            if !inList {
+                @templ.Raw("<ul>")
+                {{ inList = true }}
+            }
+            <li>{ item.Food.Name }</li>
+        }
+    }
+    </div>
+}
