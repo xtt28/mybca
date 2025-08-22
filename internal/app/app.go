@@ -16,6 +16,7 @@ type App struct {
 }
 
 func (a *App) registerRoutes() {
+	a.echo.GET("/", handler.Onboarding(&handler.OnboardingHandlerCtx{BusProvider: a.busProvider}))
 	a.echo.GET("/h", handler.Home(&handler.HomeHandlerCtx{LunchProvider: a.lunchProvider, BusProvider: a.busProvider}))
 }
 

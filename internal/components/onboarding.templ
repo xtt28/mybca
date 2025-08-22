@@ -1,0 +1,23 @@
+package components
+
+type OnboardingPageCtx struct {
+    Towns []string
+}
+
+templ OnboardingPage(op OnboardingPageCtx) {
+    @pageLayout("Get started with myBCA") {
+        <h1>Welcome to myBCA. It's nice to see you.</h1>
+        <p>Please select your town for bus info</p>
+        <form action="/h" method="GET">
+            <select name="town">
+                <option selected disabled value="">
+                    Choose your town...
+                </option>
+                for _, town := range op.Towns {
+                    <option value={ town }>{ town }</option>
+                }
+            </select>
+            <button type="submit">Let's go!</button>
+        </form>
+    }
+}
