@@ -1,0 +1,34 @@
+package components
+
+templ AddToBrowserPage() {
+	@pageLayout("Add myBCA to your browser") {
+		<h1>Adding myBCA to your browser</h1>
+		<section>
+			<h2>Safari (macOS)</h2>
+			<ol>
+				<li>Switch back to the tab with the myBCA home page open - make sure you already selected your town</li>
+				<li>Copy the link in your browser address bar (⌘C)</li>
+				<li>In the top menu bar, go to Safari -> Settings...</li>
+				<li>Change the option "New windows open with..." to "Homepage"</li>
+				<li>Change the option "New tabs open with..." to "Homepage"</li>
+				<li>Paste the link you copied into the "Homepage" box (⌘V)</li>
+			</ol>
+		</section>
+		<section>
+			<h2>Chrome/Edge</h2>
+			<ol>
+				<li>
+					Install <a href="https://chromewebstore.google.com/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia/reviews?hl=en-US" rel="nofollow" target="_blank">this</a>
+					Chrome extension
+				</li>
+				<li>Switch back to the tab with the myBCA home page open - make sure you already selected your town</li>
+				<li>Copy the link in your browser address bar (⌘C for Mac, Ctrl+C for Windows)</li>
+				<li>Open a new tab in your browser. You should see "Custom New Tab URL" pop up.</li>
+				<li>Select "Options page"</li>
+				<li>Click the checkbox next to "Enabled" to enable the extension.</li>
+				<li>Paste the link you copied into the "URL or local file path" box</li>
+				<li>Press Save</li>
+			</ol>
+		</section>
+	}
+}

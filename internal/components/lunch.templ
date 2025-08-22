@@ -19,7 +19,9 @@ templ lunchCard(date time.Time, expiry *time.Time, items []nutrislice.MenuItem) 
 						{{ inList = false }}
 						@templ.Raw("</ul>")
 					}
-					<h6>{ item.Text }</h6>
+					<h2 style="--pico-font-size: 1rem; --pico-line-height: 1.25; --pico-typography-spacing-top: 1.5rem; --pico-color: var(--pico-h6-color)">
+						{ item.Text }
+					</h2>
 				} else {
 					if !inList {
 						@templ.Raw("<ul>")

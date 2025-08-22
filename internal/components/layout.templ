@@ -7,7 +7,7 @@ templ header(title string) {
 		<meta name="color-scheme" content="light dark"/>
 		<link
 			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.yellow.min.css"
 		/>
 		<title>{ title }</title>
 	</head>
@@ -25,6 +25,7 @@ templ navBar() {
 }
 
 templ pageLayout(title string) {
+    <!DOCTYPE html>
 	<html lang="en">
 		@header(title)
 		<main class="container">
