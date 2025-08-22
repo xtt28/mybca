@@ -1,7 +1,7 @@
 package bus
 
 import (
-	"time"
+ 	"time"
 
 	"github.com/xtt28/mybca/internal/provider"
 )

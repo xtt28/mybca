@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -21,18 +20,21 @@ func Home(ctx *HomeHandlerCtx) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		town := c.QueryParam("town")
 		busLocs, err := ctx.BusProvider.Get()
+		var loc string
 		if err != nil {
-			return err
-		}
-
-		loc, ok := busLocs[town]
-		if !ok {
-			return echo.NewHTTPError(http.StatusNotFound, "town not found")
+			c.Logger().Error(err)
+			loc = "ERROR (could not get from BusProvider)"
+		} else {
+			var ok bool
+			loc, ok = busLocs[town]
+			if !ok {
+				loc = "ERROR (not found)"
+			}
 		}
 
 		menuWeek, err := ctx.LunchProvider.Get()
 		if err != nil {
-			return err
+			menuWeek = &nutrislice.MenuWeek{}
 		}
 
 		todayItems := menuWeek.GetTodayData().MenuItems

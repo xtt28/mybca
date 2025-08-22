@@ -9,6 +9,6 @@ import (
 )
 
 func main() {
-	app := app.New(":8080", nutrislice.NewMockProvider(), bus.NewMockProvider())
+	app := app.New(":8080", nutrislice.NewAPIProvider(nutrislice.BCANutrisliceURLFormat), bus.NewSheetProvider(bus.BCABusSheetURL))
 	log.Fatal(app.Run())
 }

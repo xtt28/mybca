@@ -14,12 +14,16 @@ type OnboardingHandlerCtx struct {
 func Onboarding(ctx *OnboardingHandlerCtx) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		towns, err := bus.GetTownList(ctx.BusProvider)
+		usingFallback := false
 		if err != nil {
-			return err
+			c.Logger().Error(err)
+			usingFallback = true
+			towns = bus.GetFallbackTownList()
 		}
 
 		templCtx := components.OnboardingPageCtx{
 			Towns: towns,
+			UsingFallback: usingFallback,
 		}
 		components.OnboardingPage(templCtx).Render(c.Request().Context(), c.Response().Writer)
 		return nil

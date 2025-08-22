@@ -2,12 +2,19 @@ package components
 
 type OnboardingPageCtx struct {
 	Towns []string
+    UsingFallback bool
 }
 
 templ OnboardingPage(op OnboardingPageCtx) {
 	@pageLayout("Get started with myBCA") {
 		<h1>Welcome to myBCA. It's nice to see you.</h1>
 		<p>Please select your town for bus info</p>
+        if op.UsingFallback {
+            <blockquote>
+                WARNING: Using the fallback towns list. This means that we weren't
+                able to fetch a list of towns from the bus spreadsheet.
+            </blockquote>
+        }
 		<form action="/h" method="GET">
 			<select name="town">
 				<option selected disabled value="">
