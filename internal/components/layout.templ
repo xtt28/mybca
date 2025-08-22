@@ -1,14 +1,23 @@
 package components
 
 templ header(title string) {
-    <head>
-        <title>{ title }</title>
-    </head>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="color-scheme" content="light dark"/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+		/>
+		<title>{ title }</title>
+	</head>
 }
 
 templ pageLayout(title string) {
-    <html lang="en">
-        @header(title)
-        { children... }
-    </html>
+	<html lang="en">
+		@header(title)
+        <main class="container">
+		    { children... }
+        </main>
+	</html>
 }
