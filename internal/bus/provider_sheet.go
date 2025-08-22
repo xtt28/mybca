@@ -16,8 +16,8 @@ func isWithinTimePeriod(subject string, first string, last string) bool {
 	return firstTime.Before(subTime) && lastTime.After(subTime)
 }
 
-func getCacheTTL() time.Duration {
-	timeDayFormatted := time.Now().Format("17:06")
+func getCacheTTL(t time.Time) time.Duration {
+	timeDayFormatted := t.Format("15:04")
 	if isWithinTimePeriod(timeDayFormatted, "12:25", "12:50") || isWithinTimePeriod(timeDayFormatted, "16:05", "16:30") {
 		return 1 * time.Minute
 	}
@@ -46,7 +46,7 @@ func (p *BusSheetProvider) Get() (BusLocations, error) {
 	}
 
 	p.data = data
-	p.expiry = now.Add(getCacheTTL())
+	p.expiry = now.Add(getCacheTTL(now))
 	return data, nil
 }
 
