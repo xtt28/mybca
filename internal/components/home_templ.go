@@ -126,7 +126,7 @@ func HomePage(hp HomePageCtx) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</div><footer>Made by Big Tommy • <a href=\"https://github.com/xtt28/mybca\" target=\"_blank\">Star on GitHub</a> • All source code files of this project licensed under SPDX-License-Identifier: AGPL-3.0-or-later</footer>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</div><footer>Made by Big Tommy • <a href=\"https://github.com/xtt28/mybca\" target=\"_blank\">Star on GitHub</a> • SPDX-License-Identifier: AGPL-3.0-or-later</footer>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

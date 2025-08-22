@@ -25,11 +25,11 @@ templ lunchCard(date time.Time, expiry *time.Time, items []nutrislice.MenuItem) 
 						@templ.Raw("<ul>")
 						{{ inList = true }}
 					}
-                    {{ s := "" }}
-                    if item.Category != "entree" && item.Category != "meat" {
-                        {{ s = "margin-left: 20px" }}
-                    }
-					<li style={s}>{ item.Food.Name }</li>
+					{{ s := "" }}
+					if item.Category != "entree" && item.Category != "meat" {
+						{{ s = "margin-left: 20px" }}
+					}
+					<li style={ s }>{ item.Food.Name }</li>
 				}
 			}
 		}

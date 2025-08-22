@@ -16,7 +16,7 @@ templ busCard(town string, loc string, expiry *time.Time) {
 		<footer>
 			<a href={ bus.BCABusSheetURL } target="_blank">Source (Google Sheets)</a>
 			if expiry != nil {
-                • This data is valid until { expiry.Format("2 Jan, 15:04") }
+				• This data is valid until { expiry.Format("2 Jan, 15:04") }
 			}
 		</footer>
 	</article>

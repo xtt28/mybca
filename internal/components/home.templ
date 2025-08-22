@@ -33,13 +33,13 @@ templ HomePage(hp HomePageCtx) {
 		<hr/>
 		<div class="grid">
 			<div>
-                @linksCard()
+				@linksCard()
 				@busCard(hp.Town, hp.BusLocation, hp.BusExpiryTime)
 			</div>
 			@lunchCard(hp.Now, hp.LunchExpiryTime, hp.LunchMenuItems)
 		</div>
-        <footer>
-            Made by Big Tommy • <a href="https://github.com/xtt28/mybca" target="_blank">Star on GitHub</a> • All source code files of this project licensed under SPDX-License-Identifier: AGPL-3.0-or-later
-        </footer>
+		<footer>
+			Made by Big Tommy • <a href="https://github.com/xtt28/mybca" target="_blank">Star on GitHub</a> • SPDX-License-Identifier: AGPL-3.0-or-later
+		</footer>
 	}
 }

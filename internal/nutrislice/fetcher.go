@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+const BCANutrisliceURLFormat = "https://bergen.api.nutrislice.com/menu/api/weeks/school/bergen-academy/menu-type/lunch/%d/%d/%d"
+
 type NutrisliceAPIError struct {
 	Code int
 	Body string

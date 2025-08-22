@@ -11,7 +11,7 @@ var linksJSONRaw []byte
 var links []Link
 
 type Link struct {
-	Name string `json:"name"`
+	Name        string `json:"name"`
 	Destination string `json:"dest"`
 }
 
