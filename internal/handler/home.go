@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/xtt28/mybca/internal/bus"
 	"github.com/xtt28/mybca/internal/components"
+	"github.com/xtt28/mybca/internal/helpers"
 	"github.com/xtt28/mybca/internal/nutrislice"
 	"github.com/xtt28/mybca/internal/provider"
 )
@@ -35,12 +36,13 @@ func Home(ctx *HomeHandlerCtx) echo.HandlerFunc {
 		}
 
 		todayItems := menuWeek.GetTodayData().MenuItems
+		now := time.Now()
 		templCtx := components.HomePageCtx{
 			Town:            town,
-			Now:             time.Now(),
+			Now:             now,
 			BusLocation:     loc,
 			BusExpiryTime:   ctx.BusProvider.Expiry(),
-			Greeting:        "Hello there.",
+			Greeting:        helpers.GetGreeting(now),
 			LunchMenuItems:  todayItems,
 			LunchExpiryTime: ctx.LunchProvider.Expiry(),
 		}

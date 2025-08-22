@@ -28,11 +28,12 @@ templ searchBox() {
 
 templ HomePage(hp HomePageCtx) {
 	@pageLayout("myBCA") {
-		<h1>{ hp.Greeting }</h1>
+		<h1>👋 { hp.Greeting }</h1>
 		@searchBox()
 		<hr/>
 		<div class="grid">
 			<div>
+                @linksCard()
 				@busCard(hp.Town, hp.BusLocation)
 			</div>
 			@lunchCard(hp.Now, hp.LunchExpiryTime, hp.LunchMenuItems)

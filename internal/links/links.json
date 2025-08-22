@@ -1,0 +1,24 @@
+{
+    "links": [
+        {
+            "name": "PowerSchool",
+            "dest": "https://bcts.powerschool.com"
+        },
+        {
+            "name": "Schoology",
+            "dest": "https://bca.schoology.com"
+        },
+        {
+            "name": "Teacher Absences",
+            "dest": "https://docs.google.com/document/d/e/2PACX-1vRkhySmwAiTtY88tcshckpV4F0vRrULccaGrYl_Sf2ubWpyyXA4l8c-KAOuMzSwFe-qyAQhLqXzVsbA/pub"
+        },
+        {
+            "name": "BCA Dashboard",
+            "dest": "https://signup.bergen.org/dashboard/"
+        },
+        {
+            "name": "Counselor Bookings",
+            "dest": "https://outlook.office365.com/book/CounselorBookings@bergen.org/"
+        }
+    ]    
+}

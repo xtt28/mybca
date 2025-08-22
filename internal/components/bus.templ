@@ -1,11 +1,13 @@
 package components
 
+import "github.com/xtt28/mybca/internal/bus"
+
 templ busCard(town string, loc string) {
 	<article>
 		<header>Bus location for { town }</header>
 		Your bus is parked in <mark>{ loc }</mark>
 		<footer>
-			<a href="https://docs.google.com/spreadsheets/d/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/edit?gid=0#gid=0" target="_blank">Source (Google Sheets)</a>
+			<a href={ bus.BCABusSheetURL } target="_blank">Source (Google Sheets)</a>
 		</footer>
 	</article>
 }

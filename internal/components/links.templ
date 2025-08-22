@@ -1,0 +1,14 @@
+package components
+
+import "github.com/xtt28/mybca/internal/links"
+
+templ linksCard() {
+	<article>
+		<header>Shortcuts</header>
+		<ul>
+			for _, link := range links.GetLinks() {
+				<li><a href={ link.Destination }>{ link.Name }</a></li>
+			}
+		</ul>
+	</article>
+}

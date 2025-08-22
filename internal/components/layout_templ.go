@@ -71,7 +71,7 @@ func navBar() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<nav><ul><li><strong>myBCA</strong></li></ul><ul><li><a href=\"https://github.com/xtt28/mybca\" target=\"_blank\">GitHub</a></li></ul></nav>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<nav><ul><li><strong>myBCA</strong></li></ul><ul><li><a href=\"/a\" target=\"_blank\">Add to browser</a></li></ul></nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

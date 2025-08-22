@@ -81,7 +81,7 @@ func OnboardingPage(op OnboardingPageCtx) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <button type=\"submit\">Let's go!</button></form><p>After clicking \"Let's go!\", change your browser homepage to the URL in the address bar to see myBCA whenever you open a new tab.</p><ul><li><b>In Safari:</b><ul><li>Click the \"Safari\" menu on the top of your screen and go to Settings</li><li>Set \"New windows open with:\" and \"New tabs open with:\" to Home Page</li><li>Under \"Homepage\", click \"Set to Current Page\"</li></ul></li><li><b>In Chrome/Edge:</b> Coming soon</li></ul>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <button type=\"submit\">Let's go!</button></form><p>Do you want to see myBCA every time you open a new tab in your web browser? After clicking \"Let's go!\", click the \"Add to browser\" button in the top right corner for instructions to set up myBCA with your browser (Chrome/Edge/Safari).</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

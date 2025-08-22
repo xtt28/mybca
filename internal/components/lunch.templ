@@ -10,19 +10,27 @@ templ lunchCard(date time.Time, expiry *time.Time, items []nutrislice.MenuItem) 
 	{{ dateStr := date.Format("2 January 2006") }}
 	<article>
 		<header>Lunch for { dateStr }</header>
-		for _, item := range items {
-			if item.IsSectionTitle || item.IsStationHeader {
-				if inList {
-					{{ inList = false }}
-					@templ.Raw("</ul>")
+		if len(items) < 1 {
+			There is no lunch today.
+		} else {
+			for _, item := range items {
+				if item.IsSectionTitle || item.IsStationHeader {
+					if inList {
+						{{ inList = false }}
+						@templ.Raw("</ul>")
+					}
+					<h6>{ item.Text }</h6>
+				} else {
+					if !inList {
+						@templ.Raw("<ul>")
+						{{ inList = true }}
+					}
+                    {{ s := "" }}
+                    if item.Category != "entree" && item.Category != "meat" {
+                        {{ s = "margin-left: 20px" }}
+                    }
+					<li style={s}>{ item.Food.Name }</li>
 				}
-				<h6>{ item.Text }</h6>
-			} else {
-				if !inList {
-					@templ.Raw("<ul>")
-					{{ inList = true }}
-				}
-				<li>{ item.Food.Name }</li>
 			}
 		}
 		@templ.Raw("</ul>")

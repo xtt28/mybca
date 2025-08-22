@@ -3,22 +3,15 @@ package bus
 import (
 	"time"
 
+	"github.com/xtt28/mybca/internal/helpers"
 	"github.com/xtt28/mybca/internal/provider"
 )
 
 const BCABusSheetURL = "https://docs.google.com/spreadsheets/d/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/edit"
 
-func isWithinTimePeriod(subject string, first string, last string) bool {
-	subTime, _ := time.Parse("15:04", subject)
-	firstTime, _ := time.Parse("15:04", first)
-	lastTime, _ := time.Parse("15:04", last)
-
-	return firstTime.Before(subTime) && lastTime.After(subTime)
-}
-
 func getCacheTTL(t time.Time) time.Duration {
 	timeDayFormatted := t.Format("15:04")
-	if isWithinTimePeriod(timeDayFormatted, "12:25", "12:50") || isWithinTimePeriod(timeDayFormatted, "16:05", "16:30") {
+	if helpers.IsWithinTimePeriod(timeDayFormatted, "12:25", "12:50") || helpers.IsWithinTimePeriod(timeDayFormatted, "16:05", "16:30") {
 		return 1 * time.Minute
 	}
 
