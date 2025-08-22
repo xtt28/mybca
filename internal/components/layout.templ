@@ -13,11 +13,23 @@ templ header(title string) {
 	</head>
 }
 
+templ navBar() {
+	<nav>
+		<ul>
+			<li><strong>myBCA</strong></li>
+		</ul>
+		<ul>
+			<li><a href="https://github.com/xtt28/mybca" target="_blank">GitHub</a></li>
+		</ul>
+	</nav>
+}
+
 templ pageLayout(title string) {
 	<html lang="en">
 		@header(title)
-        <main class="container">
-		    { children... }
-        </main>
+		<main class="container">
+			@navBar()
+			{ children... }
+		</main>
 	</html>
 }

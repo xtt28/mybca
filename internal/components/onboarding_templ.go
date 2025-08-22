@@ -57,7 +57,7 @@ func OnboardingPage(op OnboardingPageCtx) templ.Component {
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(town)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/onboarding.templ`, Line: 17, Col: 40}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/onboarding.templ`, Line: 17, Col: 25}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
@@ -70,7 +70,7 @@ func OnboardingPage(op OnboardingPageCtx) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(town)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/onboarding.templ`, Line: 17, Col: 49}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/onboarding.templ`, Line: 17, Col: 34}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -81,7 +81,7 @@ func OnboardingPage(op OnboardingPageCtx) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <button type=\"submit\">Let's go!</button></form>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <button type=\"submit\">Let's go!</button></form><p>After clicking \"Let's go!\", change your browser homepage to the URL in the address bar to see myBCA whenever you open a new tab.</p><ul><li><b>In Safari:</b><ul><li>Click the \"Safari\" menu on the top of your screen and go to Settings</li><li>Set \"New windows open with:\" and \"New tabs open with:\" to Home Page</li><li>Under \"Homepage\", click \"Set to Current Page\"</li></ul></li><li><b>In Chrome/Edge:</b> Coming soon</li></ul>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -1,20 +1,41 @@
 package components
 
-import "github.com/xtt28/mybca/internal/nutrislice"
+import (
+	"github.com/xtt28/mybca/internal/nutrislice"
+	"time"
+)
 
 type HomePageCtx struct {
-    Greeting string
-    Town string
-    BusLocation string
-    LunchMenuItems []nutrislice.MenuItem
+	Greeting        string
+	Now             time.Time
+	Town            string
+	BusLocation     string
+	BusExpiryTime   *time.Time
+	LunchMenuItems  []nutrislice.MenuItem
+	LunchExpiryTime *time.Time
+}
+
+templ searchBox() {
+	<form action="https://google.com/search">
+		<input
+			type="search"
+			name="q"
+			placeholder="Search Google..."
+			aria-label="Search Google..."
+		/>
+	</form>
 }
 
 templ HomePage(hp HomePageCtx) {
-    @pageLayout("myBCA") {
-        <h1>{ hp.Greeting }</h1>
-        <h2>Bus for { hp.Town }</h2>
-        <p>{ hp.BusLocation }</p>
-        <h2>Lunch today</h2>
-        @lunchOverview(hp.LunchMenuItems)
-    }
+	@pageLayout("myBCA") {
+		<h1>{ hp.Greeting }</h1>
+		@searchBox()
+		<hr/>
+		<div class="grid">
+			<div>
+				@busCard(hp.Town, hp.BusLocation)
+			</div>
+			@lunchCard(hp.Now, hp.LunchExpiryTime, hp.LunchMenuItems)
+		</div>
+	}
 }

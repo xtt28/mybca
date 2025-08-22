@@ -27,10 +27,10 @@ func (suite *ProviderSheetTestSuite) mustParseTime(s string) time.Time {
 }
 
 func (suite *ProviderSheetTestSuite) TestGetCacheTTL() {
-	suite.Equal(5 * time.Minute, getCacheTTL(suite.mustParseTime("15:00")))
-	suite.Equal(1 * time.Minute, getCacheTTL(suite.mustParseTime("12:40")))
-	suite.Equal(1 * time.Minute, getCacheTTL(suite.mustParseTime("16:15")))
-	suite.Equal(5 * time.Minute, getCacheTTL(suite.mustParseTime("4:15")))
+	suite.Equal(5*time.Minute, getCacheTTL(suite.mustParseTime("15:00")))
+	suite.Equal(1*time.Minute, getCacheTTL(suite.mustParseTime("12:40")))
+	suite.Equal(1*time.Minute, getCacheTTL(suite.mustParseTime("16:15")))
+	suite.Equal(5*time.Minute, getCacheTTL(suite.mustParseTime("4:15")))
 }
 
 func TestProviderSheetTestSuite(t *testing.T) {

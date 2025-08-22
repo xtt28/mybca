@@ -43,4 +43,3 @@ func (p *NutrisliceAPIProvider) Expiry() *time.Time {
 func NewAPIProvider(apiURLFormat string) *NutrisliceAPIProvider {
 	return &NutrisliceAPIProvider{urlFormat: apiURLFormat}
 }
-

@@ -1,23 +1,38 @@
 package components
 
 type OnboardingPageCtx struct {
-    Towns []string
+	Towns []string
 }
 
 templ OnboardingPage(op OnboardingPageCtx) {
-    @pageLayout("Get started with myBCA") {
-        <h1>Welcome to myBCA. It's nice to see you.</h1>
-        <p>Please select your town for bus info</p>
-        <form action="/h" method="GET">
-            <select name="town">
-                <option selected disabled value="">
-                    Choose your town...
-                </option>
-                for _, town := range op.Towns {
-                    <option value={ town }>{ town }</option>
-                }
-            </select>
-            <button type="submit">Let's go!</button>
-        </form>
-    }
+	@pageLayout("Get started with myBCA") {
+		<h1>Welcome to myBCA. It's nice to see you.</h1>
+		<p>Please select your town for bus info</p>
+		<form action="/h" method="GET">
+			<select name="town">
+				<option selected disabled value="">
+					Choose your town...
+				</option>
+				for _, town := range op.Towns {
+					<option value={ town }>{ town }</option>
+				}
+			</select>
+			<button type="submit">Let's go!</button>
+		</form>
+		<p>
+			After clicking "Let's go!", change your browser homepage to the URL in the address
+			bar to see myBCA whenever you open a new tab.
+		</p>
+		<ul>
+			<li>
+				<b>In Safari:</b>
+				<ul>
+					<li>Click the "Safari" menu on the top of your screen and go to Settings</li>
+					<li>Set "New windows open with:" and "New tabs open with:" to Home Page</li>
+					<li>Under "Homepage", click "Set to Current Page"</li>
+				</ul>
+			</li>
+			<li><b>In Chrome/Edge:</b> Coming soon</li>
+		</ul>
+	}
 }

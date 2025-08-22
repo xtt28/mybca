@@ -1,25 +1,33 @@
 package components
 
-import "github.com/xtt28/mybca/internal/nutrislice"
+import (
+	"github.com/xtt28/mybca/internal/nutrislice"
+	"time"
+)
 
-templ lunchOverview(items []nutrislice.MenuItem) {
-    {{ inList := false }}
-
-    <div>
-    for _, item := range items {
-        if item.IsSectionTitle || item.IsStationHeader {
-            if inList {
-                {{ inList = false }}
-                @templ.Raw("</ul>")
-            }
-            <h3>{ item.Text }</h3>
-        } else {
-            if !inList {
-                @templ.Raw("<ul>")
-                {{ inList = true }}
-            }
-            <li>{ item.Food.Name }</li>
-        }
-    }
-    </div>
+templ lunchCard(date time.Time, expiry *time.Time, items []nutrislice.MenuItem) {
+	{{ inList := false }}
+	{{ dateStr := date.Format("2 January 2006") }}
+	<article>
+		<header>Lunch for { dateStr }</header>
+		for _, item := range items {
+			if item.IsSectionTitle || item.IsStationHeader {
+				if inList {
+					{{ inList = false }}
+					@templ.Raw("</ul>")
+				}
+				<h6>{ item.Text }</h6>
+			} else {
+				if !inList {
+					@templ.Raw("<ul>")
+					{{ inList = true }}
+				}
+				<li>{ item.Food.Name }</li>
+			}
+		}
+		@templ.Raw("</ul>")
+		if expiry != nil {
+			<footer>This data is valid until { expiry.Format("2 Jan, 15:04") }</footer>
+		}
+	</article>
 }

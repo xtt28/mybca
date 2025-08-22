@@ -14,12 +14,12 @@ var _ provider.Provider[BusLocations] = &BusMockProvider{}
 func (p *BusMockProvider) Get() (BusLocations, error) {
 	return map[string]string{
 		"Mercury": "A1",
-		"Venus": "B2",
-		"Earth": "C3",
-		"Mars": "D4",
+		"Venus":   "B2",
+		"Earth":   "C3",
+		"Mars":    "D4",
 		"Jupiter": "E5",
-		"Saturn": "F6",
-		"Uranus": "G7",
+		"Saturn":  "F6",
+		"Uranus":  "G7",
 		"Neptune": "H8",
 	}, nil
 }

@@ -19,7 +19,7 @@ func (err NutrisliceAPIError) Error() string {
 var _ error = NutrisliceAPIError{}
 
 func getWeekData(apiURL string) (*MenuWeek, error) {
-	res, err := http.Get(apiURL);
+	res, err := http.Get(apiURL)
 	if err != nil {
 		return nil, err
 	}

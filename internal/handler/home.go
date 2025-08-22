@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/xtt28/mybca/internal/bus"
@@ -12,7 +13,7 @@ import (
 
 type HomeHandlerCtx struct {
 	LunchProvider provider.Provider[*nutrislice.MenuWeek]
-	BusProvider provider.Provider[bus.BusLocations]
+	BusProvider   provider.Provider[bus.BusLocations]
 }
 
 func Home(ctx *HomeHandlerCtx) echo.HandlerFunc {
@@ -35,10 +36,13 @@ func Home(ctx *HomeHandlerCtx) echo.HandlerFunc {
 
 		todayItems := menuWeek.GetTodayData().MenuItems
 		templCtx := components.HomePageCtx{
-			Town: town,
-			BusLocation: loc,
-			Greeting: "Hello there.",
-			LunchMenuItems: todayItems,
+			Town:            town,
+			Now:             time.Now(),
+			BusLocation:     loc,
+			BusExpiryTime:   ctx.BusProvider.Expiry(),
+			Greeting:        "Hello there.",
+			LunchMenuItems:  todayItems,
+			LunchExpiryTime: ctx.LunchProvider.Expiry(),
 		}
 
 		components.HomePage(templCtx).Render(c.Request().Context(), c.Response().Writer)
