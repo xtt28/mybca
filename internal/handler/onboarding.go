@@ -22,7 +22,7 @@ func Onboarding(ctx *OnboardingHandlerCtx) echo.HandlerFunc {
 		}
 
 		templCtx := components.OnboardingPageCtx{
-			Towns: towns,
+			Towns:         towns,
 			UsingFallback: usingFallback,
 		}
 		components.OnboardingPage(templCtx).Render(c.Request().Context(), c.Response().Writer)
