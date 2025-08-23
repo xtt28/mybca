@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		log.Println("couldn't load .env file: ", err.Error())
 	}
-
+	
 	env := app.Env{
 		ServerAppPort:        os.Getenv("SERVER_APP_PORT"),
 		ServerPrometheusPort: os.Getenv("SERVER_PROMETHEUS_PORT"),

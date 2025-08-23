@@ -25,6 +25,9 @@ FROM alpine:latest
 # Optional: add ca-certificates for HTTPS
 RUN apk add --no-cache ca-certificates
 
+# Add tzdata
+RUN apk add --no-cache tzdata
+
 WORKDIR /root/
 
 # Copy binary from builder
