@@ -1,0 +1,121 @@
+{
+  "id": null,
+  "uid": "echo_go_metrics",
+  "title": "Echo & Go Runtime Metrics",
+  "tags": ["echo", "go", "prometheus"],
+  "timezone": "browser",
+  "schemaVersion": 30,
+  "version": 1,
+  "panels": [
+    {
+      "type": "graph",
+      "title": "HTTP Requests Total",
+      "targets": [
+        {
+          "expr": "mybca_requests_total",
+          "legendFormat": "{{method}} {{url}} {{code}}"
+        }
+      ],
+      "gridPos": {"x":0,"y":0,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Request Duration (seconds)",
+      "targets": [
+        {
+          "expr": "rate(mybca_request_duration_seconds_sum[1m]) / rate(mybca_request_duration_seconds_count[1m])",
+          "legendFormat": "{{method}} {{url}}"
+        }
+      ],
+      "gridPos": {"x":12,"y":0,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Request Size (bytes)",
+      "targets": [
+        {
+          "expr": "rate(mybca_request_size_bytes_sum[1m]) / rate(mybca_request_size_bytes_count[1m])",
+          "legendFormat": "{{method}} {{url}}"
+        }
+      ],
+      "gridPos": {"x":0,"y":8,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Response Size (bytes)",
+      "targets": [
+        {
+          "expr": "rate(mybca_response_size_bytes_sum[1m]) / rate(mybca_response_size_bytes_count[1m])",
+          "legendFormat": "{{method}} {{url}}"
+        }
+      ],
+      "gridPos": {"x":12,"y":8,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Go GC Duration (seconds)",
+      "targets": [
+        {
+          "expr": "go_gc_duration_seconds_sum / go_gc_duration_seconds_count",
+          "legendFormat": "avg GC"
+        }
+      ],
+      "gridPos": {"x":0,"y":16,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Go Goroutines",
+      "targets": [
+        {
+          "expr": "go_goroutines",
+          "legendFormat": "goroutines"
+        }
+      ],
+      "gridPos": {"x":12,"y":16,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Go Heap Alloc (bytes)",
+      "targets": [
+        {
+          "expr": "go_memstats_heap_alloc_bytes",
+          "legendFormat": "heap_alloc"
+        }
+      ],
+      "gridPos": {"x":0,"y":24,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Go Heap Sys (bytes)",
+      "targets": [
+        {
+          "expr": "go_memstats_heap_sys_bytes",
+          "legendFormat": "heap_sys"
+        }
+      ],
+      "gridPos": {"x":12,"y":24,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Process CPU Seconds Total",
+      "targets": [
+        {
+          "expr": "rate(process_cpu_seconds_total[1m])",
+          "legendFormat": "cpu"
+        }
+      ],
+      "gridPos": {"x":0,"y":32,"w":12,"h":8}
+    },
+    {
+      "type": "graph",
+      "title": "Process Memory Resident (bytes)",
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes",
+          "legendFormat": "resident_mem"
+        }
+      ],
+      "gridPos": {"x":12,"y":32,"w":12,"h":8}
+    }
+  ]
+}
