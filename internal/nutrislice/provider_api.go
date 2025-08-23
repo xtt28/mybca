@@ -2,6 +2,7 @@ package nutrislice
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/xtt28/mybca/internal/provider"
@@ -24,6 +25,7 @@ func (p *NutrisliceAPIProvider) Get() (*MenuWeek, error) {
 		return p.data, nil
 	}
 
+	log.Println("fetching new data from Nutrislice API")
 	url := fmt.Sprintf(p.urlFormat, now.Year(), now.Month(), now.Day())
 	data, err := getWeekData(url)
 	if err != nil {

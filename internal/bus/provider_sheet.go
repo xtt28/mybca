@@ -1,7 +1,7 @@
 package bus
 
 import (
-	"fmt"
+	"log"
 	"time"
 
 	"github.com/xtt28/mybca/internal/helpers"
@@ -30,15 +30,12 @@ var _ provider.Provider[BusLocations] = &BusSheetProvider{}
 
 func (p *BusSheetProvider) Get() (BusLocations, error) {
 	now := time.Now()
-	fmt.Println(p.expiry)
-	fmt.Println(now)
-	fmt.Println(p.data)
+	
 	if !p.expiry.IsZero() && now.Before(p.expiry) && p.data != nil {
-		println("using cache")
 		return p.data, nil
 	}
 
-	println("fetching new")
+	log.Println("fetching new bus data")
 	data, err := getBusSheetData(p.sheetURL)
 	if err != nil {
 		return nil, err

@@ -7,6 +7,7 @@ import (
 
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/xtt28/mybca/internal/bus"
 	"github.com/xtt28/mybca/internal/handler"
 	"github.com/xtt28/mybca/internal/nutrislice"
@@ -36,6 +37,8 @@ func (a *App) registerRoutes() {
 
 func (a *App) addMiddleware() {
 	a.echo.Use(echoprometheus.NewMiddleware("mybca"))
+	a.echo.Use(middleware.Logger())
+	a.echo.Use(middleware.Recover())
 }
 
 func (a *App) setupPrometheusServer() {
