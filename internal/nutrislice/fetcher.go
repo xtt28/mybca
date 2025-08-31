@@ -39,8 +39,6 @@ func getWeekData(apiURL string) (*MenuWeek, error) {
 
 	menuWeek := &MenuWeek{}
 	err = json.Unmarshal(body, menuWeek)
-	fmt.Printf("%+v\n", menuWeek)
-	if err != nil { fmt.Println(err) }
 
 	return menuWeek, err
 }
