@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"math"
 	"net/http"
 	"slices"
 	"time"
@@ -20,7 +19,7 @@ func BusAppFavoriteAdd() echo.HandlerFunc {
 			return c.String(http.StatusBadRequest, "Habibi you need to specify a town")
 		}
 		helpers.AddFavoriteBus(c, town)
-		
+
 		return c.Redirect(http.StatusSeeOther, "/busapp/")
 	}
 }
@@ -32,7 +31,7 @@ func BusAppFavoriteRemove() echo.HandlerFunc {
 			return c.String(http.StatusBadRequest, "Habibi you need to specify a town")
 		}
 		helpers.RemoveFavoriteBus(c, town)
-		
+
 		return c.Redirect(http.StatusSeeOther, "/busapp/")
 	}
 }
@@ -50,23 +49,18 @@ func BusApp(ctx *BusAppHandlerCtx) echo.HandlerFunc {
 		}
 
 		favTowns, _ := helpers.GetFavoriteBuses(c)
-		entriesLen := int(math.Max(0, float64(len(busLocs) - len(favTowns))))
 
-		entries := make([]busapp.BusEntry, entriesLen)
-		favorites := make([]busapp.BusEntry, len(favTowns))
+		entries := []busapp.BusEntry{}
+		favorites := []busapp.BusEntry{}
 
-		entryi := 0
-		favi := 0
 		for key, val := range busLocs {
 			if !slices.Contains(favTowns, key) {
-				entries[entryi] = busapp.BusEntry{Town: key, Position: val}
-				entryi++
+				entries = append(entries, busapp.BusEntry{Town: key, Position: val})
 			} else {
-				favorites[favi] = busapp.BusEntry{Town: key, Position: val}
-				favi++
+				favorites = append(favorites, busapp.BusEntry{Town: key, Position: val})
 			}
 		}
-		
+
 		comparator := func(a, b busapp.BusEntry) int {
 			if a.Town < b.Town {
 				return -1
@@ -80,10 +74,10 @@ func BusApp(ctx *BusAppHandlerCtx) echo.HandlerFunc {
 		slices.SortFunc(entries, comparator)
 
 		templCtx := busapp.BusAppCtx{
-			Greeting: helpers.GetGreeting(time.Now()),
-			Entries: entries,
+			Greeting:  helpers.GetGreeting(time.Now()),
+			Entries:   entries,
 			Favorites: favorites,
-			Expiry: ctx.BusProvider.Expiry(),
+			Expiry:    ctx.BusProvider.Expiry(),
 		}
 
 		busapp.BusApp(templCtx).Render(c.Request().Context(), c.Response().Writer)
