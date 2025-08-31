@@ -18,6 +18,14 @@ type BusAppCtx struct {
 templ BusApp(ba BusAppCtx) {
 	@pageLayout("myBCA Buses") {
 		<h1>👋 { ba.Greeting }</h1>
+		<section id="instagram-browser-warning" style="display: none">
+			<h2>Aagh!</h2>
+			<p>
+				You are using the Instagram in-app browser. If you want to install our
+				mobile app, you must open this page in your phone's default browser - tap on
+				the three dots in the top right and choose "Open in external browser."
+			</p>
+		</section>
 		<section id="pwa-install-guide-section" style="display: none">
 			<h2>Install on your phone</h2>
 			<details>
@@ -97,6 +105,11 @@ templ BusApp(ba BusAppCtx) {
 		if (!window.matchMedia("(display-mode: standalone)").matches && /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent)) {
 			console.log("Not PWA and we are on mobile - we will show the install instructions !");
 			document.getElementById("pwa-install-guide-section").style.display = "block";
+		}
+		
+		if (/Instagram/.test(navigator.userAgent)) {
+			console.log("Detected Instagram in-app browser - we will show the warning !")
+			document.getElementById("instagram-browser-warning").style.display = "block";
 		}
 		</script>
 	}
