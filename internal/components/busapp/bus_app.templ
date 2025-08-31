@@ -51,13 +51,13 @@ templ BusApp(ba BusAppCtx) {
 					<tr>
 						<th scope="col"></th>
 						<th scope="col">Town</th>
-						<th scope="col">Position</th>
+						<th scope="col">Pos.</th>
 					</tr>
 				</thead>
 				<tbody>
 					for _, entry := range ba.Favorites {
 						<tr>
-							<td>
+							<td class="favorites-button-cell">
 								<form action="/busapp/favorites/remove" method="post">
 									<input type="hidden" value={ entry.Town } name="town"/>
 									<button type="submit" aria-label="Remove favorite">

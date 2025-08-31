@@ -42,7 +42,7 @@ func header(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><style>\n\t    @media(max-width: 400px) {\n\t\t    table {\n\t\t        font-size: 0.8em;\n\t\t    }\n\t    }\n\t</style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><style>\n\t    /* @media(max-width: 400px) {\n\t\t    table {\n\t\t        font-size: 0.8em;\n\t\t    }\n\t    }*/\n\n\t\ttable {\n\t\t    width: 100%;\n\t\t    overflow-wrap: anywhere;\n\t\t}\n\t\t\n\t\t/* Make long URLs wrap instead of forcing horizontal scroll */\n\t\ttd:not(.favorites-button-cell),\n\t\tth:not(.favorites-button-cell) {\n\t\t    white-space: normal;\n\t\t}\n\t\t\n\t\tth:last-child,\n\t\ttd:last-child {\n\t\t    white-space: nowrap; /* prevent wrapping */\n\t\t\tmin-width: 3rem;     /* adjust based on header text length */\n\t\t}\n\t</style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

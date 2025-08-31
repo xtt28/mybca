@@ -15,11 +15,28 @@ templ header(title string) {
 	/>
 	<title>{ title }</title>
 	<style>
-	    @media(max-width: 400px) {
+	    /* @media(max-width: 400px) {
 		    table {
 		        font-size: 0.8em;
 		    }
-	    }
+	    }*/
+
+		table {
+		    width: 100%;
+		    overflow-wrap: anywhere;
+		}
+		
+		/* Make long URLs wrap instead of forcing horizontal scroll */
+		td:not(.favorites-button-cell),
+		th:not(.favorites-button-cell) {
+		    white-space: normal;
+		}
+		
+		th:last-child,
+		td:last-child {
+		    white-space: nowrap; /* prevent wrapping */
+			min-width: 3rem;     /* adjust based on header text length */
+		}
 	</style>
 }
 
