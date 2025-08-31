@@ -2,17 +2,18 @@ package app
 
 import (
 	"errors"
-	"log"
 	"net/http"
 
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/gommon/log"
 	"github.com/xtt28/mybca"
-	"github.com/xtt28/mybca/internal/bus"
-	"github.com/xtt28/mybca/internal/handler"
-	"github.com/xtt28/mybca/internal/nutrislice"
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/features/bus"
+	"github.com/xtt28/mybca/internal/features/nutrislice"
+	"github.com/xtt28/mybca/internal/handlers"
+	"github.com/xtt28/mybca/internal/helpers"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 type Env struct {
@@ -25,24 +26,22 @@ type Env struct {
 type App struct {
 	echo           *echo.Echo
 	prometheusEcho *echo.Echo
-	lunchProvider  provider.Provider[*nutrislice.MenuWeek]
-	busProvider    provider.Provider[bus.BusLocations]
+	lunchProvider  model.Provider[*nutrislice.MenuWeek]
+	busProvider    model.Provider[bus.BusLocations]
 	env            Env
 }
 
 func (a *App) registerRoutes() {
-	a.echo.GET("/", handler.Onboarding(&handler.OnboardingHandlerCtx{BusProvider: a.busProvider}))
-	a.echo.GET("/a", handler.AddToBrowser())
-	a.echo.GET("/h", handler.Home(&handler.HomeHandlerCtx{LunchProvider: a.lunchProvider, BusProvider: a.busProvider}))
-	a.echo.GET("/busapp", func(c echo.Context) error {
-		return c.Redirect(http.StatusMovedPermanently, "/busapp/")
-	})
-	
+	a.echo.GET("/", (&handlers.Onboarding{BusProvider: a.busProvider}).GET())
+	a.echo.GET("/a", (&handlers.AddToBrowser{}).GET())
+	a.echo.GET("/h", (&handlers.Home{LunchProvider: a.lunchProvider, BusProvider: a.busProvider}).GET())
+	a.echo.GET("/busapp", helpers.RedirectHandler(http.StatusMovedPermanently, "/busapp/"))
+
 	busApp := a.echo.Group("/busapp")
 	{
-		busApp.GET("/", handler.BusApp(&handler.BusAppHandlerCtx{BusProvider: a.busProvider}))
-		busApp.POST("/favorites", handler.BusAppFavoriteAdd())
-		busApp.POST("/favorites/remove", handler.BusAppFavoriteRemove())
+		busApp.GET("/", (&handlers.BusApp{BusProvider: a.busProvider}).GET())
+		busApp.POST("/favorites", (&handlers.BusAppFavoriteAdd{}).GET())
+		busApp.POST("/favorites/remove", (&handlers.BusAppFavoriteRemove{}).GET())
 		busApp.Use(middleware.StaticWithConfig(middleware.StaticConfig{
 			Filesystem: http.FS(mybca.StaticAssets),
 		}))
@@ -56,13 +55,15 @@ func (a *App) addMiddleware() {
 }
 
 func (a *App) setupPrometheusServer() {
+	a.prometheusEcho = echo.New()
+	a.prometheusEcho.GET("/metrics", echoprometheus.NewHandler())
+	a.prometheusEcho.HideBanner = true
+	a.prometheusEcho.Logger.SetLevel(log.INFO)
+	a.prometheusEcho.Logger.Info("starting Prometheus server")
+
 	go func() {
-		a.prometheusEcho = echo.New()
-		a.prometheusEcho.GET("/metrics", echoprometheus.NewHandler())
-		a.prometheusEcho.HideBanner = true
-		log.Println("starting prometheus server")
 		if err := a.prometheusEcho.Start(":" + a.env.ServerPrometheusPort); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			log.Fatal(err)
+			a.echo.Logger.Fatal(err)
 		}
 	}()
 }
@@ -70,14 +71,14 @@ func (a *App) setupPrometheusServer() {
 func (a *App) Run() error {
 	addr := a.env.ServerAppPort
 	if addr == "" {
-		log.Println("server will use random port as no address was specified")
+		a.echo.Logger.Warn("server will use random port as no address was specified in env")
 	}
 	return a.echo.Start(":" + a.env.ServerAppPort)
 }
 
 func New(
-	lunchProvider provider.Provider[*nutrislice.MenuWeek],
-	busProvider provider.Provider[bus.BusLocations],
+	lunchProvider model.Provider[*nutrislice.MenuWeek],
+	busProvider model.Provider[bus.BusLocations],
 	env Env,
 ) *App {
 	a := &App{
@@ -87,6 +88,7 @@ func New(
 		env:           env,
 	}
 	a.echo.HideBanner = true
+	a.echo.Logger.SetLevel(log.INFO)
 	a.addMiddleware()
 	a.registerRoutes()
 	if env.ServerPrometheusPort != "" {

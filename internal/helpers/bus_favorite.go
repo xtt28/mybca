@@ -33,7 +33,7 @@ func GetFavoriteBuses(c echo.Context) ([]string, error) {
 	}
 }
 
-func SetFavorites(c echo.Context, favorites []string) {
+func SetFavoriteBuses(c echo.Context, favorites []string) {
 	favsStr := strings.Join(favorites, ",")
 	c.SetCookie(&http.Cookie{
 		Name:     BusFavoritesCookieName,
@@ -49,7 +49,7 @@ func AddFavoriteBus(c echo.Context, town string) {
 	favorites, _ := GetFavoriteBuses(c)
 
 	favorites = append(favorites, town)
-	SetFavorites(c, favorites)
+	SetFavoriteBuses(c, favorites)
 }
 
 func RemoveFavoriteBus(c echo.Context, town string) error {
@@ -62,6 +62,6 @@ func RemoveFavoriteBus(c echo.Context, town string) error {
 	fmt.Printf("removing %s\n", town)
 	n := slices.DeleteFunc(favs, func(fav string) bool { return fav == town })
 
-	SetFavorites(c, n)
+	SetFavoriteBuses(c, n)
 	return nil
 }

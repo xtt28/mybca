@@ -6,9 +6,9 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/xtt28/mybca/internal/app"
-	"github.com/xtt28/mybca/internal/bus"
-	"github.com/xtt28/mybca/internal/nutrislice"
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/features/bus"
+	"github.com/xtt28/mybca/internal/features/nutrislice"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		log.Println("couldn't load .env file: ", err.Error())
 	}
-	
+
 	env := app.Env{
 		ServerAppPort:        os.Getenv("SERVER_APP_PORT"),
 		ServerPrometheusPort: os.Getenv("SERVER_PROMETHEUS_PORT"),
@@ -24,8 +24,8 @@ func main() {
 		NutrisliceAPIURL:     os.Getenv("NUTRISLICE_API_URL"),
 	}
 
-	var nutrisliceProvider provider.Provider[*nutrislice.MenuWeek]
-	var busProvider provider.Provider[bus.BusLocations]
+	var nutrisliceProvider model.Provider[*nutrislice.MenuWeek]
+	var busProvider model.Provider[bus.BusLocations]
 
 	if env.NutrisliceAPIURL == "" {
 		log.Println("using Nutrislice mock provider as no API URL was given")

@@ -1,7 +1,7 @@
 {
   "id": null,
   "uid": "echo_go_metrics",
-  "title": "Echo & Go Runtime Metrics",
+  "title": "myBCA Runtime Metrics",
   "tags": ["echo", "go", "prometheus"],
   "timezone": "browser",
   "schemaVersion": 30,

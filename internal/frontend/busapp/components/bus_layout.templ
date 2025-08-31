@@ -1,0 +1,63 @@
+package components
+
+templ header(title string) {
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="color-scheme" content="light dark"/>
+	<meta name="description" content="See where your BCA bus is parked in the lower lot for dismissal."/>
+	<meta name="theme-color" content="rgb(19, 22.5, 30.5)" media="(prefers-color-scheme: dark)"/>
+	<meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)"/>
+	<link rel="manifest" href="/busapp/static/manifest.json"/>
+	<link rel="apple-touch-icon" href="/busapp/static/favicon-192x192.png"/>
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.yellow.min.css"
+	/>
+	<title>{ title }</title>
+	<style>
+	    /* @media(max-width: 400px) {
+		    table {
+		        font-size: 0.8em;
+		    }
+	    }*/
+
+		table {
+		    width: 100%;
+		    overflow-wrap: anywhere;
+		}
+		
+		/* Make long URLs wrap instead of forcing horizontal scroll */
+		td:not(.favorites-button-cell),
+		th:not(.favorites-button-cell) {
+		    white-space: normal;
+		}
+		
+		th:last-child,
+		td:last-child {
+		    white-space: nowrap; /* prevent wrapping */
+			min-width: 3rem;     /* adjust based on header text length */
+		}
+	</style>
+}
+
+templ navBar() {
+	<nav>
+		<ul>
+			<li><strong>myBCA Buses</strong></li>
+		</ul>
+		<ul>
+			<li><a href="">Refresh</a></li>
+		</ul>
+	</nav>
+}
+
+templ pageLayout(title string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		@header(title)
+		<main class="container">
+			@navBar()
+			{ children... }
+		</main>
+	</html>
+}

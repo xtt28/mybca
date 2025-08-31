@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/xtt28/mybca/internal/bus"
+	"github.com/xtt28/mybca/internal/features/bus"
 )
 
 func main() {
