@@ -9,7 +9,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/xtt28/mybca/internal/nutrislice"
+	"github.com/xtt28/mybca/internal/features/nutrislice"
 	"time"
 )
 

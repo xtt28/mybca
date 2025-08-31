@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/xtt28/mybca/internal/helpers"
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 const BCABusSheetURL = "https://docs.google.com/spreadsheets/d/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/edit"
@@ -26,11 +26,11 @@ type BusSheetProvider struct {
 }
 
 // Require compliance with interface.
-var _ provider.Provider[BusLocations] = &BusSheetProvider{}
+var _ model.Provider[BusLocations] = &BusSheetProvider{}
 
 func (p *BusSheetProvider) Get() (BusLocations, error) {
 	now := time.Now()
-	
+
 	if !p.expiry.IsZero() && now.Before(p.expiry) && p.data != nil {
 		return p.data, nil
 	}

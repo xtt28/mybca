@@ -9,10 +9,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/xtt28/mybca"
-	"github.com/xtt28/mybca/internal/bus"
+	"github.com/xtt28/mybca/internal/features/bus"
+	"github.com/xtt28/mybca/internal/features/nutrislice"
 	"github.com/xtt28/mybca/internal/handler"
-	"github.com/xtt28/mybca/internal/nutrislice"
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 type Env struct {
@@ -25,8 +25,8 @@ type Env struct {
 type App struct {
 	echo           *echo.Echo
 	prometheusEcho *echo.Echo
-	lunchProvider  provider.Provider[*nutrislice.MenuWeek]
-	busProvider    provider.Provider[bus.BusLocations]
+	lunchProvider  model.Provider[*nutrislice.MenuWeek]
+	busProvider    model.Provider[bus.BusLocations]
 	env            Env
 }
 
@@ -37,7 +37,7 @@ func (a *App) registerRoutes() {
 	a.echo.GET("/busapp", func(c echo.Context) error {
 		return c.Redirect(http.StatusMovedPermanently, "/busapp/")
 	})
-	
+
 	busApp := a.echo.Group("/busapp")
 	{
 		busApp.GET("/", handler.BusApp(&handler.BusAppHandlerCtx{BusProvider: a.busProvider}))
@@ -76,8 +76,8 @@ func (a *App) Run() error {
 }
 
 func New(
-	lunchProvider provider.Provider[*nutrislice.MenuWeek],
-	busProvider provider.Provider[bus.BusLocations],
+	lunchProvider model.Provider[*nutrislice.MenuWeek],
+	busProvider model.Provider[bus.BusLocations],
 	env Env,
 ) *App {
 	a := &App{

@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 type NutrisliceAPIProvider struct {
@@ -17,7 +17,7 @@ type NutrisliceAPIProvider struct {
 const nutrisliceDataTTL = 24 * time.Hour
 
 // Require compliance with interface.
-var _ provider.Provider[*MenuWeek] = &NutrisliceAPIProvider{}
+var _ model.Provider[*MenuWeek] = &NutrisliceAPIProvider{}
 
 func (p *NutrisliceAPIProvider) Get() (*MenuWeek, error) {
 	now := time.Now()

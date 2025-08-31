@@ -4,13 +4,13 @@ import (
 	"slices"
 
 	"github.com/labstack/echo/v4"
-	"github.com/xtt28/mybca/internal/bus"
 	"github.com/xtt28/mybca/internal/components"
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/features/bus"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 type OnboardingHandlerCtx struct {
-	BusProvider provider.Provider[bus.BusLocations]
+	BusProvider model.Provider[bus.BusLocations]
 }
 
 func Onboarding(ctx *OnboardingHandlerCtx) echo.HandlerFunc {

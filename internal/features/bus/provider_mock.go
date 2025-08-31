@@ -3,13 +3,13 @@ package bus
 import (
 	"time"
 
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 type BusMockProvider struct{}
 
 // Require compliance with interface.
-var _ provider.Provider[BusLocations] = &BusMockProvider{}
+var _ model.Provider[BusLocations] = &BusMockProvider{}
 
 func (p *BusMockProvider) Get() (BusLocations, error) {
 	return map[string]string{

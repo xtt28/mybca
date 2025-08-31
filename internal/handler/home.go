@@ -4,16 +4,16 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
-	"github.com/xtt28/mybca/internal/bus"
 	"github.com/xtt28/mybca/internal/components"
+	"github.com/xtt28/mybca/internal/features/bus"
+	"github.com/xtt28/mybca/internal/features/nutrislice"
 	"github.com/xtt28/mybca/internal/helpers"
-	"github.com/xtt28/mybca/internal/nutrislice"
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 type HomeHandlerCtx struct {
-	LunchProvider provider.Provider[*nutrislice.MenuWeek]
-	BusProvider   provider.Provider[bus.BusLocations]
+	LunchProvider model.Provider[*nutrislice.MenuWeek]
+	BusProvider   model.Provider[bus.BusLocations]
 }
 
 func Home(ctx *HomeHandlerCtx) echo.HandlerFunc {

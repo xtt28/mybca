@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/xtt28/mybca/internal/provider"
+	"github.com/xtt28/mybca/internal/model"
 )
 
 type NutrisliceMockProvider struct{}
 
 // Require compliance with interface.
-var _ provider.Provider[*MenuWeek] = &NutrisliceMockProvider{}
+var _ model.Provider[*MenuWeek] = &NutrisliceMockProvider{}
 
 func (p *NutrisliceMockProvider) Get() (*MenuWeek, error) {
 	now := time.Now()

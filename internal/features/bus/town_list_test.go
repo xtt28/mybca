@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/suite"
-	"github.com/xtt28/mybca/internal/bus"
+	"github.com/xtt28/mybca/internal/features/bus"
 )
 
 type TownListTestSuite struct {

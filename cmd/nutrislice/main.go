@@ -5,7 +5,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/xtt28/mybca/internal/nutrislice"
+	"github.com/xtt28/mybca/internal/features/nutrislice"
 )
 
 func main() {
