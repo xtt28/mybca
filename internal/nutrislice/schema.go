@@ -17,6 +17,9 @@ type MenuWeek struct {
 }
 
 func (w *MenuWeek) GetTodayData() MenuDay {
+	if len(w.Days) < int(time.Now().Weekday()) + 1 {
+		return MenuDay{}
+	}
 	return w.Days[time.Now().Weekday()]
 }
 
