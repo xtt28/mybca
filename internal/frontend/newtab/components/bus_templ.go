@@ -5,12 +5,12 @@ package components
 
 //lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import (
-	"time"
+import "github.com/a-h/templ"
+import templruntime "github.com/a-h/templ/runtime"
 
-	"github.com/a-h/templ"
-	templruntime "github.com/a-h/templ/runtime"
+import (
 	"github.com/xtt28/mybca/internal/features/bus"
+	"time"
 )
 
 func busCard(town string, loc string, expiry *time.Time) templ.Component {

@@ -1,19 +1,19 @@
-package handler
+package handlers
 
 import (
 	"slices"
 
 	"github.com/labstack/echo/v4"
-	"github.com/xtt28/mybca/internal/components"
 	"github.com/xtt28/mybca/internal/features/bus"
+	"github.com/xtt28/mybca/internal/frontend/newtab/components"
 	"github.com/xtt28/mybca/internal/model"
 )
 
-type OnboardingHandlerCtx struct {
+type Onboarding struct {
 	BusProvider model.Provider[bus.BusLocations]
 }
 
-func Onboarding(ctx *OnboardingHandlerCtx) echo.HandlerFunc {
+func (ctx *Onboarding) GET() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		towns, err := bus.GetTownList(ctx.BusProvider)
 		usingFallback := false

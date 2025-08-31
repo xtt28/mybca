@@ -1,22 +1,22 @@
-package handler
+package handlers
 
 import (
 	"time"
 
 	"github.com/labstack/echo/v4"
-	"github.com/xtt28/mybca/internal/components"
 	"github.com/xtt28/mybca/internal/features/bus"
 	"github.com/xtt28/mybca/internal/features/nutrislice"
+	"github.com/xtt28/mybca/internal/frontend/newtab/components"
 	"github.com/xtt28/mybca/internal/helpers"
 	"github.com/xtt28/mybca/internal/model"
 )
 
-type HomeHandlerCtx struct {
+type Home struct {
 	LunchProvider model.Provider[*nutrislice.MenuWeek]
 	BusProvider   model.Provider[bus.BusLocations]
 }
 
-func Home(ctx *HomeHandlerCtx) echo.HandlerFunc {
+func (ctx *Home) GET() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		town := c.QueryParam("town")
 		busLocs, err := ctx.BusProvider.Get()
