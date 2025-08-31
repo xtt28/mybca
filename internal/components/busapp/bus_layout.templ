@@ -1,12 +1,14 @@
-package components
+package busapp
 
 templ header(title string) {
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta name="color-scheme" content="light dark"/>
-	<meta name="description" content="The ultimate new tab page for BCA students. Get instant access to bus data, lunch menus, and quick links."/>
-	<link rel="manifest" href="/static/manifest.json"/>
-	<link rel="apple-touch-icon" href="/static/favicon-192x192.png"/>
+	<meta name="description" content="See where your BCA bus is parked in the lower lot for dismissal."/>
+	<meta name="theme-color" content="rgb(19, 22.5, 30.5)" media="(prefers-color-scheme: dark)"/>
+	<meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)"/>
+	<link rel="manifest" href="/busapp/static/manifest.json"/>
+	<link rel="apple-touch-icon" href="/busapp/static/favicon-192x192.png"/>
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.yellow.min.css"
@@ -17,10 +19,10 @@ templ header(title string) {
 templ navBar() {
 	<nav>
 		<ul>
-			<li><strong>myBCA</strong></li>
+			<li><strong>myBCA Buses</strong></li>
 		</ul>
 		<ul>
-			<li><a href="/a" target="_blank">Add to browser</a></li>
+			<li><a href="">Refresh</a></li>
 		</ul>
 	</nav>
 }

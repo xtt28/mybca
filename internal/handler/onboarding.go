@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"slices"
+
 	"github.com/labstack/echo/v4"
 	"github.com/xtt28/mybca/internal/bus"
 	"github.com/xtt28/mybca/internal/components"
@@ -20,6 +22,7 @@ func Onboarding(ctx *OnboardingHandlerCtx) echo.HandlerFunc {
 			usingFallback = true
 			towns = bus.GetFallbackTownList()
 		}
+		slices.Sort(towns)
 
 		templCtx := components.OnboardingPageCtx{
 			Towns:         towns,

@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/xtt28/mybca"
 	"github.com/xtt28/mybca/internal/bus"
 	"github.com/xtt28/mybca/internal/handler"
 	"github.com/xtt28/mybca/internal/nutrislice"
@@ -33,6 +34,19 @@ func (a *App) registerRoutes() {
 	a.echo.GET("/", handler.Onboarding(&handler.OnboardingHandlerCtx{BusProvider: a.busProvider}))
 	a.echo.GET("/a", handler.AddToBrowser())
 	a.echo.GET("/h", handler.Home(&handler.HomeHandlerCtx{LunchProvider: a.lunchProvider, BusProvider: a.busProvider}))
+	a.echo.GET("/busapp", func(c echo.Context) error {
+		return c.Redirect(http.StatusMovedPermanently, "/busapp/")
+	})
+	
+	busApp := a.echo.Group("/busapp")
+	{
+		busApp.GET("/", handler.BusApp(&handler.BusAppHandlerCtx{BusProvider: a.busProvider}))
+		busApp.POST("/favorites", handler.BusAppFavoriteAdd())
+		busApp.POST("/favorites/remove", handler.BusAppFavoriteRemove())
+		busApp.Use(middleware.StaticWithConfig(middleware.StaticConfig{
+			Filesystem: http.FS(mybca.StaticAssets),
+		}))
+	}
 }
 
 func (a *App) addMiddleware() {
