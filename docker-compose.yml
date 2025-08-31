@@ -22,6 +22,7 @@ services:
       - TZ=${TZ:-}
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
     expose:
       - "9090" # available only inside Docker network
     networks:
@@ -49,3 +50,6 @@ services:
 networks:
   monitoring:
     driver: bridge
+
+volumes:
+  prometheus_data:
