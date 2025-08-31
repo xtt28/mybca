@@ -3,6 +3,7 @@ package nutrislice
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -25,9 +26,12 @@ func getWeekData(apiURL string) (*MenuWeek, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
-	body := make([]byte, res.ContentLength)
-	res.Body.Read(body)
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
 
 	if res.StatusCode != http.StatusOK {
 		return nil, NutrisliceAPIError{res.StatusCode, string(body)}
@@ -35,6 +39,8 @@ func getWeekData(apiURL string) (*MenuWeek, error) {
 
 	menuWeek := &MenuWeek{}
 	err = json.Unmarshal(body, menuWeek)
+	fmt.Printf("%+v\n", menuWeek)
+	if err != nil { fmt.Println(err) }
 
 	return menuWeek, err
 }
