@@ -69,7 +69,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</h1><section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</h1><section id=\"pwa-install-guide-section\" style=\"display: none\"><h2>Install on your phone</h2><details><summary>Install on iOS (Safari)</summary><ol><li>Press the Share button in the bottom center of the screen</li><li>Tap \"Add to Home Screen\"</li><li>Confirm by clicking \"Add\" in the top right corner</li></ol></details> <details><summary>Install on Android (Chrome)</summary><ol><li>Press the three dots in the top right of the screen</li><li>Tap \"Add to Home Screen\" -> \"Install\"</li><li>Follow on-screen instructions to install</li></ol></details><hr></section><section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -81,7 +81,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(ba.Expiry.Format("3:04 PM"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 25, Col: 40}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 45, Col: 40}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -94,7 +94,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 				var templ_7745c5c3_Var5 templ.SafeURL
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(bus.BCABusSheetURL)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 26, Col: 33}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 46, Col: 33}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -110,14 +110,14 @@ func BusApp(ba BusAppCtx) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			for _, entry := range ba.Favorites {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<tr><td><form action=\"favorites/remove\" method=\"post\"><input type=\"hidden\" value=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<tr><td><form action=\"/busapp/favorites/remove\" method=\"post\"><input type=\"hidden\" value=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(entry.Town)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 42, Col: 48}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 62, Col: 48}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -130,7 +130,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(entry.Town)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 50, Col: 35}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 70, Col: 35}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -143,7 +143,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(entry.Position)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 51, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 71, Col: 27}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -155,14 +155,14 @@ func BusApp(ba BusAppCtx) templ.Component {
 				}
 			}
 			for _, entry := range ba.Entries {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<tr><td><form action=\"favorites\" method=\"post\"><input type=\"hidden\" value=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<tr><td><form action=\"/busapp/favorites\" method=\"post\"><input type=\"hidden\" value=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(entry.Town)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 58, Col: 48}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 78, Col: 48}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -175,7 +175,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 				var templ_7745c5c3_Var10 string
 				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(entry.Town)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 66, Col: 35}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 86, Col: 35}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {
@@ -188,7 +188,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(entry.Position)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 67, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/components/busapp/bus_app.templ`, Line: 87, Col: 27}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
@@ -199,7 +199,7 @@ func BusApp(ba BusAppCtx) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</tbody></table></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</tbody></table></section><footer>Made by Big Tommy • <a href=\"https://github.com/xtt28/mybca\" target=\"_blank\">Star on GitHub</a> • SPDX-License-Identifier: AGPL-3.0-or-later</footer><script>\n\t\tif (!window.matchMedia(\"(display-mode: standalone)\").matches && /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent)) {\n\t\t\tconsole.log(\"Not PWA and we are on mobile - we will show the install instructions !\");\n\t\t\tdocument.getElementById(\"pwa-install-guide-section\").style.display = \"block\";\n\t\t}\n\t\t</script>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

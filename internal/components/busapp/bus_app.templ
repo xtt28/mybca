@@ -18,6 +18,26 @@ type BusAppCtx struct {
 templ BusApp(ba BusAppCtx) {
 	@pageLayout("myBCA Buses") {
 		<h1>👋 { ba.Greeting }</h1>
+		<section id="pwa-install-guide-section" style="display: none">
+			<h2>Install on your phone</h2>
+			<details>
+				<summary>Install on iOS (Safari)</summary>
+				<ol>
+					<li>Press the Share button in the bottom center of the screen</li>
+					<li>Tap "Add to Home Screen"</li>
+					<li>Confirm by clicking "Add" in the top right corner</li>
+				</ol>
+			</details>
+			<details>
+				<summary>Install on Android (Chrome)</summary>
+				<ol>
+					<li>Press the three dots in the top right of the screen</li>
+					<li>Tap "Add to Home Screen" -> "Install"</li>
+					<li>Follow on-screen instructions to install</li>
+				</ol>
+			</details>
+			<hr />
+		</section>
 		<section>
 			if ba.Expiry != nil {
 				<p>
@@ -38,7 +58,7 @@ templ BusApp(ba BusAppCtx) {
 					for _, entry := range ba.Favorites {
 						<tr>
 							<td>
-								<form action="favorites/remove" method="post">
+								<form action="/busapp/favorites/remove" method="post">
 									<input type="hidden" value={ entry.Town } name="town"/>
 									<button type="submit" aria-label="Remove favorite">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" fill="currentColor">
@@ -54,7 +74,7 @@ templ BusApp(ba BusAppCtx) {
 					for _, entry := range ba.Entries {
 						<tr>
 							<td>
-								<form action="favorites" method="post">
+								<form action="/busapp/favorites" method="post">
 									<input type="hidden" value={ entry.Town } name="town"/>
 									<button type="submit" class="outline" aria-label="Add favorite">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" stroke-width="1.5" stroke="currentColor">
@@ -70,5 +90,14 @@ templ BusApp(ba BusAppCtx) {
 				</tbody>
 			</table>
 		</section>
+		<footer>
+			Made by Big Tommy • <a href="https://github.com/xtt28/mybca" target="_blank">Star on GitHub</a> • SPDX-License-Identifier: AGPL-3.0-or-later
+		</footer>
+		<script>
+		if (!window.matchMedia("(display-mode: standalone)").matches && /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent)) {
+			console.log("Not PWA and we are on mobile - we will show the install instructions !");
+			document.getElementById("pwa-install-guide-section").style.display = "block";
+		}
+		</script>
 	}
 }

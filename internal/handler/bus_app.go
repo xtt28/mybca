@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"math"
 	"net/http"
 	"slices"
 	"time"
@@ -45,12 +46,13 @@ func BusApp(ctx *BusAppHandlerCtx) echo.HandlerFunc {
 		busLocs, err := ctx.BusProvider.Get()
 		if err != nil {
 			c.Logger().Error(err)
-			return c.String(http.StatusInternalServerError, "Error (could not get from BusProvider) - try again later")
+			busLocs = bus.BusLocations{}
 		}
 
 		favTowns, _ := helpers.GetFavoriteBuses(c)
+		entriesLen := int(math.Max(0, float64(len(busLocs) - len(favTowns))))
 
-		entries := make([]busapp.BusEntry, len(busLocs)-len(favTowns))
+		entries := make([]busapp.BusEntry, entriesLen)
 		favorites := make([]busapp.BusEntry, len(favTowns))
 
 		entryi := 0

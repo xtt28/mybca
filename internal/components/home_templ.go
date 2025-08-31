@@ -106,7 +106,7 @@ func HomePage(hp HomePageCtx) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, " <hr><div class=\"grid\"><div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, " <blockquote><p><b>Rest in peace, YourBCABus</b></p>Want to install our new mobile app that lets you see all the bus locations at once? Click <a href=\"/busapp/\" target=\"blank\">here</a> or go to <b>mybca.link/busapp</b> on your phone and follow the instructions.</blockquote><hr><div class=\"grid\"><div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

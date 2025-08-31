@@ -6,14 +6,15 @@ students, all within one convenient page.
 
 ## Production deployment
 
-At the moment, there is no official deployment of this software.
+The official deployment of this software is located at <https://mybca.link>
 
 ## Features
 
 ### External data
 
 - Shows daily lunch data, sourced from Nutrislice REST API
-- Shows bus location data scraped from BCA bus location Google Sheet
+- Shows bus location data scraped from BCA bus location Google Sheet on new tab
+  and bus summary page
 - Server-side caching of data sourced from external providers
 
 ### User interface
@@ -21,6 +22,7 @@ At the moment, there is no official deployment of this software.
 - Includes shortcuts to PowerSchool, Schoology, teacher absence listing, BCA
   dashboard, and counselor booking site
 - Includes search box for fast Google search
+- Bus summary page has PWA manifest
 
 ### Deployment/instrumentation
 
@@ -39,7 +41,8 @@ git clone https://github.com/xtt28/mybca.git
 cd mybca
 ```
 
-Rename the <template.env> file to ".env" and insert your desired values into it.
+Rename the [template.env](template.env) file to ".env" and insert your desired
+values into it.
 
 ### Running
 

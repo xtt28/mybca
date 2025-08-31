@@ -34,6 +34,9 @@ func (a *App) registerRoutes() {
 	a.echo.GET("/", handler.Onboarding(&handler.OnboardingHandlerCtx{BusProvider: a.busProvider}))
 	a.echo.GET("/a", handler.AddToBrowser())
 	a.echo.GET("/h", handler.Home(&handler.HomeHandlerCtx{LunchProvider: a.lunchProvider, BusProvider: a.busProvider}))
+	a.echo.GET("/busapp", func(c echo.Context) error {
+		return c.Redirect(http.StatusMovedPermanently, "/busapp/")
+	})
 	
 	busApp := a.echo.Group("/busapp")
 	{
