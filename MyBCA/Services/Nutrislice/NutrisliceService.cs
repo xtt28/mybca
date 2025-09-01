@@ -14,9 +14,9 @@ public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions
     {
         get
         {
-            if (_cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
+            if (_cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
             {
-                return cachedPositions!.Expiry;
+                return cachedWeek!.Expiry;
             }
 
             return null;

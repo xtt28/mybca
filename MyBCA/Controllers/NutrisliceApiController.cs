@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MyBCA.Models.Nutrislice;
+using MyBCA.Models.Nutrislice.Responses;
 using MyBCA.Services.Nutrislice;
 
 namespace MyBCA.Controllers;
@@ -11,9 +12,10 @@ public class LunchApiController(INutrisliceService menuService) : ControllerBase
     private readonly INutrisliceService _menuService = menuService;
 
     [HttpGet("week")]
-    public async Task<MenuWeek> GetWeek()
+    public async Task<ActionResult<MenuWeek>> GetWeek()
     {
-        return await _menuService.GetMenuWeekAsync();
+        var week = await _menuService.GetMenuWeekAsync();
+        return Ok(new NutrisliceApiResponse<MenuWeek>(week, _menuService.Expiry));
     }
 
     [HttpGet("day")]
@@ -25,6 +27,6 @@ public class LunchApiController(INutrisliceService menuService) : ControllerBase
             return NotFound();
         }
 
-        return day;
+        return Ok(new NutrisliceApiResponse<MenuDay>(day, _menuService.Expiry));
     }
 }
