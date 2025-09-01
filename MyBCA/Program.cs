@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using MyBCA.Services.Bus;
+using MyBCA.Services.Links;
 using MyBCA.Services.Nutrislice;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,11 @@ builder.Services.AddHttpClient<IBusService, BusService>((sp, client) =>
     var options = sp.GetRequiredService<IOptions<BusOptions>>().Value;
     client.BaseAddress = new Uri(options.BaseUrl);
 });
+
+builder.Services.Configure<MyBCA.Services.Links.LinkOptions>(
+    builder.Configuration.GetSection("QuickLinks")
+);
+builder.Services.AddSingleton<ILinkService, LinkService>();
 
 var app = builder.Build();
 
