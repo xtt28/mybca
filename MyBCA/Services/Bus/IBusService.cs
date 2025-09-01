@@ -1,11 +1,10 @@
 using MyBCA.Models.Bus;
 
-namespace MyBCA.Services.Bus
+namespace MyBCA.Services.Bus;
+
+public interface IBusService
 {
-    public interface IBusService
-    {
-        Task<Dictionary<string, string>> GetPositionsMapAsync();
-        Task<IEnumerable<BusPosition>> GetPositionsAsync();
-        DateTime? Expiry { get; }
-    }
+    Task<Dictionary<string, string>> GetPositionsMapAsync();
+    Task<IEnumerable<BusPosition>> GetPositionsAsync();
+    DateTime? Expiry { get; }
 }

@@ -1,31 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Models;
+using MyBCA.Models.Nutrislice;
 using MyBCA.Services.Nutrislice;
 
-namespace MyBCA.Controllers
+namespace MyBCA.Controllers;
+
+[ApiController]
+[Route("api/lunch")]
+public class LunchApiController(INutrisliceService menuService) : ControllerBase
 {
-    [ApiController]
-    [Route("api/lunch")]
-    public class LunchApiController(INutrisliceService menuService) : ControllerBase
+    private readonly INutrisliceService _menuService = menuService;
+
+    [HttpGet("week")]
+    public async Task<MenuWeek> GetWeek()
     {
-        private readonly INutrisliceService _menuService = menuService;
+        return await _menuService.GetMenuWeekAsync();
+    }
 
-        [HttpGet("week")]
-        public async Task<MenuWeek> GetWeek()
+    [HttpGet("day")]
+    public async Task<ActionResult<MenuDay>> GetDay()
+    {
+        var day = await _menuService.GetMenuDayAsync();
+        if (day is null)
         {
-            return await _menuService.GetMenuWeekAsync();
+            return NotFound();
         }
 
-        [HttpGet("day")]
-        public async Task<ActionResult<MenuDay>> GetDay()
-        {
-            var day = await _menuService.GetMenuDayAsync();
-            if (day == null)
-            {
-                return NotFound();
-            }
-
-            return day;
-        }
+        return day;
     }
 }
