@@ -1,16 +1,31 @@
 using Microsoft.Extensions.Options;
+using MyBCA.Services.Bus;
 using MyBCA.Services.Nutrislice;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddMemoryCache();
+
 builder.Services.Configure<NutrisliceOptions>(
     builder.Configuration.GetSection("NutrisliceApi")
 );
 builder.Services.AddHttpClient<INutrisliceService, NutrisliceService>((sp, client) =>
 {
     var options = sp.GetRequiredService<IOptions<NutrisliceOptions>>().Value;
+    client.BaseAddress = new Uri(options.BaseUrl);
+});
+
+builder.Services.Configure<BusOptions>(
+    builder.Configuration.GetSection("BusSheet")
+);
+builder.Services.AddHttpClient<IBusService, BusService>((sp, client) =>
+{
+    var options = sp.GetRequiredService<IOptions<BusOptions>>().Value;
     client.BaseAddress = new Uri(options.BaseUrl);
 });
 

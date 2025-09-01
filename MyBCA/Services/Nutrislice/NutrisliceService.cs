@@ -1,28 +1,42 @@
 using System.Text.Json;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using MyBCA.Models;
 
 namespace MyBCA.Services.Nutrislice
 {
-    public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions> options) : INutrisliceService
+    public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions> options, IMemoryCache cache) : INutrisliceService
     {
-        public DateTime? Expiry { get; private set; } = null;
-        private MenuWeek? _cachedWeekData;
+        private const string CacheKey = "MenuWeek";
 
+        public DateTime? Expiry
+        {
+            get
+            {
+                if (_cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
+                {
+                    return cachedPositions!.Expiry;
+                }
+
+                return null;
+            }
+        }
+
+        private readonly IMemoryCache _cache = cache;
         private readonly HttpClient _httpClient = httpClient;
         private readonly NutrisliceOptions _options = options.Value;
 
         public async Task<MenuWeek> GetMenuWeekAsync()
         {
-            var now = DateTime.Now;
-
-            if (now < Expiry && _cachedWeekData != null)
+            if (_cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
             {
-                return _cachedWeekData;
+                return cachedWeek!.Value;
             }
 
             try
             {
+                var now = DateTime.Now;
+
                 var jsonOptions = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
@@ -31,8 +45,13 @@ namespace MyBCA.Services.Nutrislice
                 var response = await _httpClient.GetFromJsonAsync<MenuWeek>($"{now.Year}/{now.Month}/{now.Day}", jsonOptions)
                     ?? throw new InvalidOperationException("Received empty response from Nutrislice API");
 
-                _cachedWeekData = response;
-                Expiry = now.Add(_options.CacheTTL);
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(options.Value.CacheTtl);
+                _cache.Set(CacheKey, new CacheItem<MenuWeek>
+                {
+                    Value = response,
+                    Expiry = DateTime.Now + options.Value.CacheTtl
+                }, cacheEntryOptions);
 
                 return response;
             }
