@@ -1,8 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MyBCA.Models.Home.HomeOnboardingTemplate
+
+@{
+    ViewData["Title"] = "Get started";
+    ViewData["Description"] = "The ultimate new tab page for BCA students. Get instant access to bus data, lunch menus, and quick links.";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@section Navbar {
+    @await Html.PartialAsync("_TitleOnlyNavbar")
+}
+
+<h1>Welcome to myBCA. It's nice to see you.</h1>
+<p>Please select your town for bus info</p>
+<form action="" method="get">
+    <select name="town">
+        <option selected disabled value="">Choose your town...</option>
+        @foreach (var town in Model.Towns)
+        {
+            <option value="@town">@town</option>
+        }
+    </select>
+    <button type="submit">Let's go!</button>
+</form>
