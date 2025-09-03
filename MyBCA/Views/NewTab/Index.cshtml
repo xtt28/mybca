@@ -1,0 +1,22 @@
+@model MyBCA.Models.NewTab.NewTabTemplate
+
+@{
+    ViewData["Title"] = "Home";
+    ViewData["Description"] = "The ultimate new tab page for BCA students. Get instant access to bus data, lunch menus, and quick links.";
+}
+
+@section Navbar {
+    @await Html.PartialAsync("_NewTabNavbar")
+}
+
+<h1>👋 Hello there.</h1>
+@await Html.PartialAsync("_SearchBar")
+<div class="grid">
+    <div>
+        @await Html.PartialAsync("_LinksCard", Model.LinksData)
+        @await Html.PartialAsync("_BusCard", Model.BusData)
+    </div>
+    <div>
+        @await Html.PartialAsync("_LunchCard", Model.LunchData)
+    </div>
+</div>

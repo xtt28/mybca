@@ -9,24 +9,22 @@ namespace MyBCA.Controllers;
 [Route("api/lunch")]
 public class LunchApiController(INutrisliceService menuService) : ControllerBase
 {
-    private readonly INutrisliceService _menuService = menuService;
-
     [HttpGet("week")]
     public async Task<ActionResult<MenuWeek>> GetWeek()
     {
-        var week = await _menuService.GetMenuWeekAsync();
-        return Ok(new NutrisliceApiResponse<MenuWeek>(week, _menuService.Expiry));
+        var week = await menuService.GetMenuWeekAsync();
+        return Ok(new NutrisliceApiResponse<MenuWeek>(week, menuService.Expiry));
     }
 
     [HttpGet("day")]
     public async Task<ActionResult<MenuDay>> GetDay()
     {
-        var day = await _menuService.GetMenuDayAsync();
+        var day = await menuService.GetMenuDayAsync();
         if (day is null)
         {
             return NotFound();
         }
 
-        return Ok(new NutrisliceApiResponse<MenuDay>(day, _menuService.Expiry));
+        return Ok(new NutrisliceApiResponse<MenuDay>(day, menuService.Expiry));
     }
 }

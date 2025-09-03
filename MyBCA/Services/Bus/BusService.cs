@@ -14,7 +14,7 @@ public class BusService(HttpClient httpClient, IOptions<BusOptions> options, IMe
     {
         get
         {
-            if (_cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
+            if (cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
             {
                 return cachedPositions!.Expiry;
             }
@@ -22,10 +22,6 @@ public class BusService(HttpClient httpClient, IOptions<BusOptions> options, IMe
             return null;
         }
     }
-
-    private readonly IMemoryCache _cache = cache;
-    private readonly HttpClient _httpClient = httpClient;
-    private readonly BusOptions _options = options.Value;
 
     private static bool IsBetween(TimeSpan time, TimeSpan lower, TimeSpan upper) => time >= lower && time <= upper;
 
@@ -35,22 +31,22 @@ public class BusService(HttpClient httpClient, IOptions<BusOptions> options, IMe
         if (IsBetween(nowTime, new TimeSpan(12, 25, 0), new TimeSpan(12, 50, 0))
             || IsBetween(nowTime, new TimeSpan(16, 5, 0), new TimeSpan(16, 30, 0)))
         {
-            return _options.CacheTtlDismissalTime;
+            return options.Value.CacheTtlDismissalTime;
         }
 
-        return _options.CacheTtlNormal;
+        return options.Value.CacheTtlNormal;
     }
 
     public async Task<Dictionary<string, string>> GetPositionsMapAsync()
     {
-        if (_cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
+        if (cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
         {
             return cachedPositions!.Value;
         }
 
         try
         {
-            var html = await _httpClient.GetStringAsync("");
+            var html = await httpClient.GetStringAsync("");
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
@@ -81,7 +77,7 @@ public class BusService(HttpClient httpClient, IOptions<BusOptions> options, IMe
             var ttl = GetCacheTtl(DateTime.Now);
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(ttl);
-            _cache.Set(CacheKey, new CacheItem<Dictionary<string, string>>
+            cache.Set(CacheKey, new CacheItem<Dictionary<string, string>>
             {
                 Value = positionMap,
                 Expiry = DateTime.Now + ttl

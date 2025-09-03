@@ -9,12 +9,10 @@ namespace MyBCA.Controllers;
 [Route("api/links")]
 public class LinkApiController(ILinkService linkService) : ControllerBase
 {
-    private readonly ILinkService _linkService = linkService;
-
     [HttpGet()]
     public ActionResult<IEnumerable<Link>> GetBusLocations()
     {
-        var links = _linkService.GetLinks();
+        var links = linkService.GetLinks();
         return Ok(new LinkApiResponse(links.Count(), links));
     }
 }

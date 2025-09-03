@@ -6,14 +6,11 @@ using MyBCA.Services.Bus;
 
 namespace MyBCA.Controllers;
 
-public class HomeController(ILogger<HomeController> logger, IBusService busService) : Controller
+public class HomeController(IBusService busService) : Controller
 {
-    private readonly ILogger<HomeController> _logger = logger;
-    private readonly IBusService _busService = busService;
-
     public async Task<IActionResult> Index()
     {
-        var towns = await _busService.GetPositionsMapAsync();
+        var towns = await busService.GetPositionsMapAsync();
         var keys = towns.Keys.ToList();
         keys.Sort();
         

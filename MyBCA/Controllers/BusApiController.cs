@@ -8,13 +8,11 @@ namespace MyBCA.Controllers;
 [Route("api/bus")]
 public class BusApiController(IBusService busService) : ControllerBase
 {
-    private readonly IBusService _busService = busService;
-
     [HttpGet("positions")]
     public async Task<ActionResult<BusApiResponse>> GetBusLocations()
     {
-        var locations = await _busService.GetPositionsMapAsync();
+        var locations = await busService.GetPositionsMapAsync();
 
-        return Ok(new BusApiResponse(locations.Count, locations, _busService.Expiry));
+        return Ok(new BusApiResponse(locations.Count, locations, busService.Expiry));
     }
 }

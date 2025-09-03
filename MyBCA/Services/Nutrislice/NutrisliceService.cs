@@ -14,7 +14,7 @@ public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions
     {
         get
         {
-            if (_cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
+            if (cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
             {
                 return cachedWeek!.Expiry;
             }
@@ -23,13 +23,9 @@ public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions
         }
     }
 
-    private readonly IMemoryCache _cache = cache;
-    private readonly HttpClient _httpClient = httpClient;
-    private readonly NutrisliceOptions _options = options.Value;
-
     public async Task<MenuWeek> GetMenuWeekAsync()
     {
-        if (_cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
+        if (cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
         {
             return cachedWeek!.Value;
         }
@@ -43,12 +39,12 @@ public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
                 PropertyNameCaseInsensitive = true
             };
-            var response = await _httpClient.GetFromJsonAsync<MenuWeek>($"{now.Year}/{now.Month}/{now.Day}", jsonOptions)
+            var response = await httpClient.GetFromJsonAsync<MenuWeek>($"{now.Year}/{now.Month}/{now.Day}", jsonOptions)
                 ?? throw new InvalidOperationException("Received empty response from Nutrislice API");
 
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(options.Value.CacheTtl);
-            _cache.Set(CacheKey, new CacheItem<MenuWeek>
+            cache.Set(CacheKey, new CacheItem<MenuWeek>
             {
                 Value = response,
                 Expiry = DateTime.Now + options.Value.CacheTtl
