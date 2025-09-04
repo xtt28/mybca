@@ -12,20 +12,20 @@ public class NewTabController(IBusService busService, ILinkService linkService, 
     public async Task<IActionResult> Index(string town)
     {
         var buses = await busService.GetPositionsMapAsync();
-        if (!buses.TryGetValue(town, out var location))
+        NewTabBusTemplate? busTemplate = null;
+        if (town != null && buses.TryGetValue(town, out var location))
         {
-            return NotFound();
+            var busPosition = new BusPosition(town, location);
+            var busExpiry = busService.Expiry;
+            busTemplate = new NewTabBusTemplate(busPosition, busExpiry);
         }
-
-        var busPosition = new BusPosition(town, location);
-        var busExpiry = busService.Expiry;
 
         var lunchToday = await nutrisliceService.GetMenuDayAsync();
         var lunchExpiry = nutrisliceService.Expiry;
         var lunchTemplate = lunchToday is null ? null : new NewTabLunchTemplate(lunchToday.MenuItems, lunchExpiry);
 
         return View(new NewTabTemplate(
-            new NewTabBusTemplate(busPosition, busExpiry),
+            busTemplate,
             new NewTabLinksTemplate(linkService.GetLinks()),
             lunchTemplate
         ));

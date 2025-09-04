@@ -1,3 +1,4 @@
+@using MyBCA.Models.NewTab
 @model MyBCA.Models.NewTab.NewTabTemplate
 
 @{
@@ -14,7 +15,10 @@
 <div class="grid">
     <div>
         @await Html.PartialAsync("_LinksCard", Model.LinksData)
-        @await Html.PartialAsync("_BusCard", Model.BusData)
+        @if (Model.BusData is NewTabBusTemplate busData)
+        {
+            @await Html.PartialAsync("_BusCard", Model.BusData)
+        }
     </div>
     <div>
         @await Html.PartialAsync("_LunchCard", Model.LunchData)
