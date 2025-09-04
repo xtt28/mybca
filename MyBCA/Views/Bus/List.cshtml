@@ -1,0 +1,44 @@
+@model MyBCA.Models.Bus.Responses.BusListTemplate
+
+@{
+    ViewData["Title"] = "myBCA Buses";
+    ViewData["Description"] = "Say goodbye to broken apps and clunky spreadsheets. Easily see where your BCA bus is parked in the lower lot for dismissal with myBCA Buses.";
+}
+
+@section Navbar {
+    @await Html.PartialAsync("_BusNavbar")
+}
+
+<h1>👋 Hello there.</h1>
+<section>
+    @if (Model.Expiry is DateTime expiry)
+    {
+        <p>
+            We'll fetch new data from the bus spreadsheet at
+            <mark>@expiry.ToShortTimeString()</mark>.
+        </p>
+    }
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Town</th>
+                <th scope="col">Pos.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var location in Model.Positions)
+            {
+                <tr>
+                    <td>
+                        <form action="" method="post">
+
+                        </form>
+                    </td>
+                    <th scope="row">@location.Town</th>
+                    <td>@location.Location</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
