@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+    overflow-wrap: anywhere;
+}
+
+td:not(.favorites-button-cell),
+th:not(.favorites-button-cell) {
+    white-space: normal;
+}
+
+th:last-child,
+td:last-child {
+    white-space: nowrap;
+    min-width: 3rem;
+}
