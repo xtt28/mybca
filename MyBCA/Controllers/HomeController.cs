@@ -10,6 +10,11 @@ public class HomeController(IBusService busService) : Controller
 {
     public async Task<IActionResult> Index()
     {
+        if (Request.Cookies.TryGetValue(BusController.FavoriteTownCookieKey, out _))
+        {
+            return RedirectToAction("Index", "NewTab");
+        }
+
         var towns = await busService.GetPositionsMapAsync();
         var keys = towns.Keys.ToList();
         keys.Sort();

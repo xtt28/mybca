@@ -50,7 +50,8 @@ public class NewTabController(IBusService busService, ILinkService linkService, 
     {
         Response.Cookies.Append(TownCookieKey, name, new CookieOptions
         {
-            Expires = DateTimeOffset.UtcNow.AddYears(20)
+            Expires = DateTimeOffset.UtcNow.AddYears(20),
+            Path = "/",
         });
 
         return RedirectToAction("Index");
