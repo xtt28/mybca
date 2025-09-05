@@ -13,7 +13,7 @@ public class HomeController(IBusService busService) : Controller
         var towns = await busService.GetPositionsMapAsync();
         var keys = towns.Keys.ToList();
         keys.Sort();
-        
+
         return View(new HomeOnboardingTemplate(keys));
     }
 

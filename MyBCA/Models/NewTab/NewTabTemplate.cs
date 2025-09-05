@@ -5,5 +5,6 @@ namespace MyBCA.Models.NewTab;
 public record NewTabTemplate(
     NewTabBusTemplate? BusData,
     NewTabLinksTemplate LinksData,
-    NewTabLunchTemplate? LunchData
+    NewTabLunchTemplate? LunchData,
+    IEnumerable<string>? TownList
 );

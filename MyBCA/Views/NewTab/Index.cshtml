@@ -12,10 +12,30 @@
 
 <h1>👋 Hello there.</h1>
 @await Html.PartialAsync("_SearchBar")
+
+@if (Model.TownList is IEnumerable<string> towns)
+{
+    <hr />
+    <details>
+        <summary>Change your town</summary>
+        <form asp-controller="NewTab" asp-action="SetTown" method="post">
+            <select name="name" required>
+                <option selected disabled value="">Choose your town...</option>
+                @foreach (var town in towns)
+                {
+                    <option value="@town">@town</option>
+                }
+            </select>
+            <button type="submit">Let's go!</button>
+        </form>
+    </details>
+}
+
+<hr />
 <div class="grid">
     <div>
         @await Html.PartialAsync("_LinksCard", Model.LinksData)
-        @if (Model.BusData is NewTabBusTemplate busData)
+        @if (Model.BusData is not null)
         {
             @await Html.PartialAsync("_BusCard", Model.BusData)
         }

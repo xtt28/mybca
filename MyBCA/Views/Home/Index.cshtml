@@ -11,8 +11,8 @@
 
 <h1>Welcome to myBCA. It's nice to see you.</h1>
 <p>Please select your town for bus info</p>
-<form asp-controller="NewTab" asp-action="Index" method="get">
-    <select name="town">
+<form asp-controller="NewTab" asp-action="SetTown" method="post">
+    <select name="name" required>
         <option selected disabled value="">Choose your town...</option>
         @foreach (var town in Model.Towns)
         {

@@ -9,14 +9,19 @@ namespace MyBCA.Controllers;
 
 public class NewTabController(IBusService busService, ILinkService linkService, INutrisliceService nutrisliceService) : Controller
 {
-    public async Task<IActionResult> Index(string town)
+    private const string TownCookieKey = "mybca_newtab_town";
+
+    public async Task<IActionResult> Index()
     {
+        var town = GetTown();
+
         var buses = await busService.GetPositionsMapAsync();
         NewTabBusTemplate? busTemplate = null;
         if (town != null && buses.TryGetValue(town, out var location))
         {
             var busPosition = new BusPosition(town, location);
             var busExpiry = busService.Expiry;
+
             busTemplate = new NewTabBusTemplate(busPosition, busExpiry);
         }
 
@@ -24,10 +29,30 @@ public class NewTabController(IBusService busService, ILinkService linkService, 
         var lunchExpiry = nutrisliceService.Expiry;
         var lunchTemplate = lunchToday is null ? null : new NewTabLunchTemplate(lunchToday.MenuItems, lunchExpiry);
 
+        var busList = buses?.Keys.ToList();
+        busList?.Sort();
+
         return View(new NewTabTemplate(
             busTemplate,
             new NewTabLinksTemplate(linkService.GetLinks()),
-            lunchTemplate
+            lunchTemplate,
+            buses?.Keys
         ));
+    }
+
+    private string? GetTown()
+    {
+        return Request.Cookies[TownCookieKey];
+    }
+
+    [HttpPost]
+    public IActionResult SetTown(string name)
+    {
+        Response.Cookies.Append(TownCookieKey, name, new CookieOptions
+        {
+            Expires = DateTimeOffset.UtcNow.AddYears(20)
+        });
+
+        return RedirectToAction("Index");
     }
 }
