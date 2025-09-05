@@ -17,11 +17,6 @@ public class HomeController(IBusService busService) : Controller
         return View(new HomeOnboardingTemplate(keys));
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
