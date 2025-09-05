@@ -36,7 +36,7 @@ public class NewTabController(IBusService busService, ILinkService linkService, 
             busTemplate,
             new NewTabLinksTemplate(linkService.GetLinks()),
             lunchTemplate,
-            buses?.Keys
+            busList
         ));
     }
 
