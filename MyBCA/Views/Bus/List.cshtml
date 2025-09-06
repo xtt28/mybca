@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="~/css/buslist.css">
 }
 
+@section Scripts {
+    <script src="~/js/buslist.js"></script>
+}
+
 @section Navbar {
     @await Html.PartialAsync("_BusNavbar")
 }
@@ -22,6 +26,33 @@
             <mark>@expiry.ToShortTimeString()</mark>.
         </p>
     }
+    <section id="instagram-browser-warning" style="display: none">
+        <h2>Aagh!</h2>
+        <p>
+            You are using the Instagram in-app browser. If you want to install our
+            mobile app, you must open this page in your phone's default browser - tap on
+            the three dots in the top right and choose "Open in external browser."
+        </p>
+    </section>
+    <section id="pwa-install-guide" style="display: none">
+        <h2>Install on your phone</h2>
+        <details>
+            <summary>Install on iOS (Safari)</summary>
+            <ol>
+                <li>Press the Share button at the bottom center of the screen</li>
+                <li>Tap "Add to Home Screen"</li>
+                <li>Confirm by clicking "Add" in the top right corner</li>
+            </ol>
+        </details>
+        <details>
+            <summary>Install on Android (Chrome)</summary>
+            <ol>
+                <li>Press the three dots at the top right of the screen</li>
+                <li>Tap "Add to Home Screen" -> "Install"</li>
+                <li>Follow the on-screen instructions to install</li>
+            </ol>
+        </details>
+    </section>
     <table>
         <thead>
             <tr>
