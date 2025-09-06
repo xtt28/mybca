@@ -9,7 +9,7 @@ namespace MyBCA.Controllers;
 
 public class NewTabController(IBusService busService, ILinkService linkService, INutrisliceService nutrisliceService) : Controller
 {
-    private const string TownCookieKey = "mybca_newtab_town";
+    public const string TownCookieKey = "mybca_newtab_town";
 
     public async Task<IActionResult> Index()
     {
@@ -52,6 +52,7 @@ public class NewTabController(IBusService busService, ILinkService linkService, 
         {
             Expires = DateTimeOffset.UtcNow.AddYears(20),
             Path = "/",
+            MaxAge = new TimeSpan(365 * 20, 0, 0, 0),
         });
 
         return RedirectToAction("Index");

@@ -8,7 +8,7 @@ namespace MyBCA.Controllers;
 
 public class BusController(IBusService busService) : Controller
 {
-    public const string FavoriteTownCookieKey = "mybca_buslist_favorites_json";
+    private const string FavoriteTownCookieKey = "mybca_buslist_favorites_json";
 
     public async Task<IActionResult> List()
     {

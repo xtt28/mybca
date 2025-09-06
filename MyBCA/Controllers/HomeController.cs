@@ -10,7 +10,7 @@ public class HomeController(IBusService busService) : Controller
 {
     public async Task<IActionResult> Index()
     {
-        if (Request.Cookies.TryGetValue(BusController.FavoriteTownCookieKey, out _))
+        if (Request.Cookies.TryGetValue(NewTabController.TownCookieKey, out _))
         {
             return RedirectToAction("Index", "NewTab");
         }

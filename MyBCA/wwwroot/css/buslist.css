@@ -3,7 +3,7 @@ table {
     overflow-wrap: anywhere;
 }
 
-td:not(.favorites-button-cell),
+td:not(.favorites-button-cell), 
 th:not(.favorites-button-cell) {
     white-space: normal;
 }
