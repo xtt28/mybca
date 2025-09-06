@@ -1,0 +1,11 @@
+@model MyBCA.Server.Models.NewTab.NewTabLinksTemplate
+
+<article>
+    <header>Shortcuts</header>
+    <ul>
+        @foreach (var link in Model.Links)
+        {
+            <li><a href="@link.Target">@link.Name</a></li>
+        }
+    </ul>
+</article>
