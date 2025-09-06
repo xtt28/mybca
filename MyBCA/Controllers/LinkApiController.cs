@@ -9,8 +9,9 @@ namespace MyBCA.Controllers;
 [Route("api/links")]
 public class LinkApiController(ILinkService linkService) : ControllerBase
 {
+    [EndpointSummary("Retrieves a list of quick links to key BCA services")]
     [HttpGet]
-    public ActionResult<IEnumerable<Link>> GetBusLocations()
+    public ActionResult<IEnumerable<Link>> GetLinks()
     {
         var links = linkService.GetLinks();
         return Ok(new LinkApiResponse(links.Count(), links));

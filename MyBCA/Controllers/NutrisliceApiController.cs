@@ -9,6 +9,7 @@ namespace MyBCA.Controllers;
 [Route("api/lunch")]
 public class LunchApiController(INutrisliceService menuService) : ControllerBase
 {
+    [EndpointSummary("Retrieves the lunch menu for the week")]
     [HttpGet("week")]
     public async Task<ActionResult<MenuWeek>> GetWeek()
     {
@@ -16,6 +17,7 @@ public class LunchApiController(INutrisliceService menuService) : ControllerBase
         return Ok(new NutrisliceApiResponse<MenuWeek>(week, menuService.Expiry));
     }
 
+    [EndpointSummary("Retrieves the lunch menu for the day")]
     [HttpGet("day")]
     public async Task<ActionResult<MenuDay>> GetDay()
     {
