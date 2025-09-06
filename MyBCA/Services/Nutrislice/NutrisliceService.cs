@@ -6,7 +6,7 @@ using MyBCA.Models.Nutrislice;
 
 namespace MyBCA.Services.Nutrislice;
 
-public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions> options, IMemoryCache cache) : INutrisliceService
+public class NutrisliceService(ILogger<NutrisliceService> logger, HttpClient httpClient, IOptions<NutrisliceOptions> options, IMemoryCache cache) : INutrisliceService
 {
     private const string CacheKey = "MenuWeek";
 
@@ -27,11 +27,13 @@ public class NutrisliceService(HttpClient httpClient, IOptions<NutrisliceOptions
     {
         if (cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
         {
+            logger.LogDebug("Using cached Nutrislice data");
             return cachedWeek!.Value;
         }
 
         try
         {
+            logger.LogInformation("Fetching new Nutrislice data");
             var now = DateTime.Now;
 
             var jsonOptions = new JsonSerializerOptions

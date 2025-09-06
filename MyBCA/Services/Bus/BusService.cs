@@ -6,7 +6,7 @@ using MyBCA.Models.Bus;
 
 namespace MyBCA.Services.Bus;
 
-public class BusService(HttpClient httpClient, IOptions<BusOptions> options, IMemoryCache cache) : IBusService
+public class BusService(ILogger<BusService> logger, HttpClient httpClient, IOptions<BusOptions> options, IMemoryCache cache) : IBusService
 {
     private const string CacheKey = "BusPositionMap";
 
@@ -41,11 +41,13 @@ public class BusService(HttpClient httpClient, IOptions<BusOptions> options, IMe
     {
         if (cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
         {
+            logger.LogDebug("Using cached bus position data");
             return cachedPositions!.Value;
         }
 
         try
         {
+            logger.LogInformation("Fetching new bus position data");
             var html = await httpClient.GetStringAsync("");
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
@@ -75,6 +77,13 @@ public class BusService(HttpClient httpClient, IOptions<BusOptions> options, IMe
 
             var now = DateTime.Now;
             var ttl = GetCacheTtl(DateTime.Now);
+            logger.LogInformation("Cache TTL for newly fetched bus position data is {Ttl}", ttl);
+
+            if (positionMap.Count < 20)
+            {
+                logger.LogWarning("Less than {Count} bus positions found - that's weird!", positionMap.Count);
+            }
+
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(ttl);
             cache.Set(CacheKey, new CacheItem<Dictionary<string, string>>
