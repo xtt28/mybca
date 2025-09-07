@@ -11,6 +11,11 @@ public class NewTabController(ILogger<NewTabController> logger, IBusService busS
 {
     public const string TownCookieKey = "mybca_newtab_town";
 
+    public IActionResult AddToBrowser()
+    {
+        return View();
+    }
+
     public async Task<IActionResult> Index()
     {
         var town = GetTown();
