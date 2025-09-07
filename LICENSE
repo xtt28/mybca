@@ -1,0 +1,11 @@
+= License for myBCA =
+
+⚠️ This repository uses multiple licenses.
+
+Please refer to the LICENSE files in the subdirectories of this repository to
+see the directories' respective licenses.
+
+If no LICENSE file is present in any of the directories containing a given
+source file, that file is licensed under the MIT license as follows:
+
+    SPDX-License-Identifier: MIT
