@@ -23,6 +23,8 @@ public class BusService(ILogger<BusService> logger, HttpClient httpClient, IOpti
         }
     }
 
+    public string? SourceUrl => options.Value.BaseUrl;
+
     private static bool IsBetween(TimeSpan time, TimeSpan lower, TimeSpan upper) => time >= lower && time <= upper;
 
     private TimeSpan GetCacheTtl(DateTime now)
@@ -115,5 +117,14 @@ public class BusService(ILogger<BusService> logger, HttpClient httpClient, IOpti
         }
 
         return positions;
+    }
+
+    public async Task<IEnumerable<string>> GetBusNamesAsync()
+    {
+        var positionsMap = await GetPositionsMapAsync();
+        var mapKeys = positionsMap.Keys.ToList();
+        mapKeys.Sort();
+
+        return mapKeys;
     }
 }

@@ -41,6 +41,9 @@
         }
     </div>
     <div>
-        @await Html.PartialAsync("_LunchCard", Model.LunchData)
+        @if (Model.LunchData is not null)
+        {
+            @await Html.PartialAsync("_LunchCard", Model.LunchData)
+        }
     </div>
 </div>

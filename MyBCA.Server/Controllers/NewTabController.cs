@@ -7,7 +7,7 @@ using MyBCA.Server.Services.Nutrislice;
 
 namespace MyBCA.Server.Controllers;
 
-public class NewTabController(IBusService busService, ILinkService linkService, INutrisliceService nutrisliceService) : Controller
+public class NewTabController(ILogger<NewTabController> logger, IBusService busService, ILinkService linkService, INutrisliceService nutrisliceService) : Controller
 {
     public const string TownCookieKey = "mybca_newtab_town";
 
@@ -15,19 +15,38 @@ public class NewTabController(IBusService busService, ILinkService linkService, 
     {
         var town = GetTown();
 
-        var buses = await busService.GetPositionsMapAsync();
         NewTabBusTemplate? busTemplate = null;
-        if (town != null && buses.TryGetValue(town, out var location))
+        Dictionary<string, string>? buses = null;
+        try
         {
-            var busPosition = new BusPosition(town, location);
-            var busExpiry = busService.Expiry;
+            buses = await busService.GetPositionsMapAsync();
+            if (town != null && buses.TryGetValue(town, out var location))
+            {
+                var busPosition = new BusPosition(town, location);
+                var busExpiry = busService.Expiry;
 
-            busTemplate = new NewTabBusTemplate(busPosition, busExpiry);
+                busTemplate = new NewTabBusTemplate(busPosition, busExpiry);
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError("Could not get bus data: {Error}", ex);
         }
 
-        var lunchToday = await nutrisliceService.GetMenuDayAsync();
-        var lunchExpiry = nutrisliceService.Expiry;
-        var lunchTemplate = lunchToday is null ? null : new NewTabLunchTemplate(lunchToday.MenuItems, lunchExpiry);
+        NewTabLunchTemplate? lunchTemplate = null;
+        try
+        {
+            var lunchToday = await nutrisliceService.GetMenuDayAsync();
+            var lunchExpiry = nutrisliceService.Expiry;
+            if (lunchToday is not null)
+            {
+                lunchTemplate = new NewTabLunchTemplate(lunchToday.MenuItems, lunchExpiry);
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError("Could not get Nutrislice data: {Error}", ex);
+        }
 
         var busList = buses?.Keys.ToList();
         busList?.Sort();

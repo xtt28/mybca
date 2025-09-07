@@ -6,5 +6,7 @@ public interface IBusService
 {
     Task<Dictionary<string, string>> GetPositionsMapAsync();
     Task<IEnumerable<BusPosition>> GetPositionsAsync();
+    Task<IEnumerable<string>> GetBusNamesAsync();
+    string? SourceUrl { get; }
     DateTime? Expiry { get; }
 }

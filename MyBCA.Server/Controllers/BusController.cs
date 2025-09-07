@@ -29,7 +29,7 @@ public class BusController(IBusService busService) : Controller
         locationsList.RemoveAll(favoriteLocs.Contains);
         locationsList.Sort((a, b) => string.Compare(a.Town, b.Town, StringComparison.OrdinalIgnoreCase));
 
-        return View(new BusListTemplate(favoriteLocs, locationsList, busService.Expiry));
+        return View(new BusListTemplate(favoriteLocs, locationsList, busService.Expiry, busService.SourceUrl));
     }
 
     [HttpPost]

@@ -15,11 +15,9 @@ public class HomeController(IBusService busService) : Controller
             return RedirectToAction("Index", "NewTab");
         }
 
-        var towns = await busService.GetPositionsMapAsync();
-        var keys = towns.Keys.ToList();
-        keys.Sort();
+        var townNames = await busService.GetBusNamesAsync();
 
-        return View(new HomeOnboardingTemplate(keys));
+        return View(new HomeOnboardingTemplate(townNames));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
