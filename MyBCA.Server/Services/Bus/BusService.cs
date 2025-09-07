@@ -2,7 +2,7 @@ using HtmlAgilityPack;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using MyBCA.Server.Models;
-using MyBCA.Server.Models.Bus;
+using MyBCA.Shared.Models.Bus;
 
 namespace MyBCA.Server.Services.Bus;
 

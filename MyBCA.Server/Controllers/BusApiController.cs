@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Server.Models.Bus.Responses;
+using MyBCA.Shared.Models.Bus.Responses;
 using MyBCA.Server.Services.Bus;
 
 namespace MyBCA.Server.Controllers;

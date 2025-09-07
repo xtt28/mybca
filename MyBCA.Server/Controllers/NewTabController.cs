@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Server.Models.Bus;
+using MyBCA.Shared.Models.Bus;
 using MyBCA.Server.Models.NewTab;
 using MyBCA.Server.Services.Bus;
 using MyBCA.Server.Services.Links;

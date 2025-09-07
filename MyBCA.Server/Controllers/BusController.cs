@@ -1,6 +1,6 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Server.Models.Bus;
+using MyBCA.Shared.Models.Bus;
 using MyBCA.Server.Models.Bus.Responses;
 using MyBCA.Server.Services.Bus;
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Server.Models.Links;
-using MyBCA.Server.Models.Links.Responses;
+using MyBCA.Shared.Models.Links;
+using MyBCA.Shared.Models.Links.Responses;
 using MyBCA.Server.Services.Links;
 
 namespace MyBCA.Server.Controllers;

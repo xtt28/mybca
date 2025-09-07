@@ -1,4 +1,4 @@
-using MyBCA.Server.Models.Links;
+using MyBCA.Shared.Models.Links;
 
 namespace MyBCA.Server.Models.NewTab;
 

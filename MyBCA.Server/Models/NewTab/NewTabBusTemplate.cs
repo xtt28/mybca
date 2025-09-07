@@ -1,4 +1,4 @@
-using MyBCA.Server.Models.Bus;
+using MyBCA.Shared.Models.Bus;
 
 namespace MyBCA.Server.Models.NewTab;
 

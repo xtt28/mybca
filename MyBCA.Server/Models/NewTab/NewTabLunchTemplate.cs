@@ -1,4 +1,4 @@
-using MyBCA.Server.Models.Nutrislice;
+using MyBCA.Shared.Models.Nutrislice;
 
 namespace MyBCA.Server.Models.NewTab;
 

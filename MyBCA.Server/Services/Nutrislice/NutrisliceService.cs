@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using MyBCA.Server.Models;
-using MyBCA.Server.Models.Nutrislice;
+using MyBCA.Shared.Models.Nutrislice;
 
 namespace MyBCA.Server.Services.Nutrislice;
 

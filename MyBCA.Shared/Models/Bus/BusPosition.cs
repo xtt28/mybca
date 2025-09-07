@@ -1,3 +1,3 @@
-namespace MyBCA.Server.Models.Bus;
+namespace MyBCA.Shared.Models.Bus;
 
 public record BusPosition(string Town, string Location);
