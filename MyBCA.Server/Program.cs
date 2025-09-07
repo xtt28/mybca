@@ -42,7 +42,8 @@ builder.Services.AddSingleton<ILinkService, LinkService>();
 var app = builder.Build();
 
 var rewriteOptions = new RewriteOptions()
-    .AddRedirect("^h$", "NewTab", (int)HttpStatusCode.MovedPermanently);
+    .AddRedirect("^h$", "NewTab", (int)HttpStatusCode.MovedPermanently)
+    .AddRedirect("^busapp$", "Bus/List", (int)HttpStatusCode.MovedPermanently);
 app.UseRewriter(rewriteOptions);
 
 // Configure the HTTP request pipeline.
