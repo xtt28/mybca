@@ -1,0 +1,11 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: MyBCA.Server/Dockerfile
+    container_name: mybca-server
+    environment:
+      - SERVER_APP_PORT=${SERVER_APP_PORT:-8080}
+      - TZ=${TZ:-America/New_York}
+    ports:
+      - "${SERVER_APP_PORT}:8080"

@@ -3,8 +3,8 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # Copy csproj and restore dependencies
-COPY MyBCA.Server/MyBCA.Server.csproj ./ 
-RUN dotnet restore
+COPY ./MyBCA.Server/MyBCA.Server.csproj ./ 
+COPY ./MyBCA.Shared/MyBCA.Shared.csproj ./
 
 # Copy the rest of the project
 COPY . .
