@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Options;
 using MyBCA.Server.Services.Bus;
@@ -13,6 +14,7 @@ builder.Logging.AddDebug();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddMemoryCache();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddOpenApi();
 
@@ -46,6 +48,23 @@ var rewriteOptions = new RewriteOptions()
     .AddRedirect("^busapp$", "Bus/List", (int)HttpStatusCode.MovedPermanently);
 app.UseRewriter(rewriteOptions);
 
+app.UseExceptionHandler("/error");
+app.Map("/error", async httpContext =>
+{
+    var problemDetails = new ProblemDetails
+    {
+        Type = "/errors/UnknownError",
+        Title = "An unexpected error occurred.",
+        Status = (int)HttpStatusCode.InternalServerError,
+        Detail = "Something went wrong, please try again later.",
+        Instance = httpContext.Request.Path
+    };
+
+    httpContext.Response.ContentType = "application/json";
+    httpContext.Response.StatusCode = problemDetails.Status.Value;
+    await httpContext.Response.WriteAsJsonAsync(problemDetails);
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -53,7 +72,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    // app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }

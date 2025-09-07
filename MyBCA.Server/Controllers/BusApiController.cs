@@ -5,12 +5,11 @@ using MyBCA.Server.Services.Bus;
 namespace MyBCA.Server.Controllers;
 
 [ApiController]
-[Route("api/bus")]
+[Route("api/bus/[action]")]
 public class BusApiController(IBusService busService) : ControllerBase
 {
     [EndpointSummary("Retrieves a map of each bus to its position")]
-    [HttpGet("list")]
-    public async Task<ActionResult<BusApiResponse>> GetBusLocations()
+    public async Task<ActionResult<BusApiResponse>> List()
     {
         var locations = await busService.GetPositionsMapAsync();
 
