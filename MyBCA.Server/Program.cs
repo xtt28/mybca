@@ -1,3 +1,5 @@
+using System.Net;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Options;
 using MyBCA.Server.Services.Bus;
 using MyBCA.Server.Services.Links;
@@ -38,6 +40,10 @@ builder.Services.Configure<MyBCA.Server.Services.Links.LinkOptions>(
 builder.Services.AddSingleton<ILinkService, LinkService>();
 
 var app = builder.Build();
+
+var rewriteOptions = new RewriteOptions()
+    .AddRedirect("^h$", "NewTab", (int)HttpStatusCode.MovedPermanently);
+app.UseRewriter(rewriteOptions);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
