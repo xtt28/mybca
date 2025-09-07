@@ -10,7 +10,7 @@
 }
 
 @section Scripts {
-    <script src="~/js/buslist.js"></script>
+    <script src="~/js/buslist.js" defer></script>
 }
 
 @section Navbar {
@@ -26,7 +26,7 @@
             <mark>@expiry.ToShortTimeString()</mark>.
             @if (Model.SourceUrl is string sourceUrl)
             {
-                @:Click <a href="@Model.SourceUrl" target="_blank">here</a> to
+                @:Click <a href="@Model.SourceUrl" target="_blank" rel="nofollow">here</a> to
                 @:see the spreadsheet.
             }
         </p>
