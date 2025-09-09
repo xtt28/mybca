@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using MyBCA.Server.Services.Bus;
 using MyBCA.Server.Services.Links;
 using MyBCA.Server.Services.Nutrislice;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,12 @@ builder.Services.Configure<MyBCA.Server.Services.Links.LinkOptions>(
     builder.Configuration.GetSection("QuickLinks")
 );
 builder.Services.AddSingleton<ILinkService, LinkService>();
+
+builder.Services.UseHttpClientMetrics();
+builder.Services.AddMetricServer(options =>
+{
+    options.Port = builder.Configuration.GetValue<ushort>("Metrics:Port");
+});
 
 var app = builder.Build();
 
@@ -79,6 +86,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseHttpMetrics();
 
 app.UseAuthorization();
 
