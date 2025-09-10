@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.12.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
   </ItemGroup>
 
   <ItemGroup>
