@@ -54,36 +54,15 @@ public class BusService(ILogger<BusService> logger, HttpClient httpClient, IOpti
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            // In Google Sheets, main sheet table is located in table element with waffle class
-            var table = doc.DocumentNode.SelectSingleNode("//table[contains(@class, 'waffle')]")
-                ?? throw new InvalidDataException("Table not found on page");
-
-            // Skip first row (header)
-            var rows = table.SelectNodes("tbody/tr").Cast<HtmlNode>().Skip(1);
-            var positionMap = new Dictionary<string, string>();
-
-            foreach (var row in rows)
-            {
-                var cells = row.SelectNodes("td").Cast<HtmlNode>();
-                for (int i = 0; i < 4; i += 2)
-                {
-                    var cellContent = cells.ElementAt(i).InnerText;
-                    if (string.IsNullOrWhiteSpace(cellContent))
-                    {
-                        continue;
-                    }
-
-                    positionMap[cellContent] = cells.ElementAt(i + 1).InnerText;
-                }
-            }
+            var positionMap = BusSheetReader.ParseTableToPositionMap(doc);
 
             var now = DateTime.Now;
-            var ttl = GetCacheTtl(DateTime.Now);
+            var ttl = GetCacheTtl(now);
             logger.LogInformation("Cache TTL for newly fetched bus position data is {Ttl}", ttl);
 
             if (positionMap.Count < 20)
             {
-                logger.LogWarning("Less than {Count} bus positions found - that's weird!", positionMap.Count);
+                logger.LogWarning("Only {Count} bus positions found - that's weird!", positionMap.Count);
             }
 
             var cacheEntryOptions = new MemoryCacheEntryOptions()
