@@ -37,7 +37,7 @@ The production deployment of this app is located at <https://mybca.link>.
 We use Docker Compose.
 
 ```shell
-git clone https://github.com/xtt28/mybca
+git clone https://github.com/mybca-app/mybca-server
 cd mybca
 docker compose up --build -d
 ```
