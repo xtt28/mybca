@@ -8,10 +8,10 @@ namespace MyBCA.Server.Controllers;
 
 [ApiController]
 [Route("api/links")]
+[EnableCors("AllowAll")]
 public class LinkApiController(ILinkService linkService) : ControllerBase
 {
     [EndpointSummary("Retrieves a list of quick links to key BCA services")]
-    [EnableCors]
     [HttpGet]
     public ActionResult<IEnumerable<Link>> GetLinks()
     {

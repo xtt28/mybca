@@ -7,10 +7,10 @@ namespace MyBCA.Server.Controllers;
 
 [ApiController]
 [Route("api/bus/[action]")]
+[EnableCors("AllowAll")]
 public class BusApiController(IBusService busService) : ControllerBase
 {
     [EndpointSummary("Retrieves a map of each bus to its position")]
-    [EnableCors]
     [HttpGet]
     public async Task<ActionResult<BusApiResponse>> List()
     {

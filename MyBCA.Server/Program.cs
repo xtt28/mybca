@@ -19,6 +19,17 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddOpenApi();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
 builder.Services.Configure<NutrisliceOptions>(
     builder.Configuration.GetSection("NutrisliceApi")
 );
@@ -55,6 +66,7 @@ var rewriteOptions = new RewriteOptions()
     .AddRedirect("^busapp$", "Bus/List", (int)HttpStatusCode.MovedPermanently)
     .AddRedirect("^busapp/$", "Bus/List", (int)HttpStatusCode.MovedPermanently);
 app.UseRewriter(rewriteOptions);
+
 
 app.UseExceptionHandler("/error");
 app.Map("/error", async httpContext =>

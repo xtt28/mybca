@@ -8,10 +8,10 @@ namespace MyBCA.Server.Controllers;
 
 [ApiController]
 [Route("api/lunch/[action]")]
+[EnableCors("AllowAll")]
 public class LunchApiController(INutrisliceService menuService) : ControllerBase
 {
     [EndpointSummary("Retrieves the lunch menu for the week")]
-    [EnableCors]
     [HttpGet]
     public async Task<ActionResult<MenuWeek>> Week()
     {
@@ -20,7 +20,6 @@ public class LunchApiController(INutrisliceService menuService) : ControllerBase
     }
 
     [EndpointSummary("Retrieves the lunch menu for the day")]
-    [EnableCors]
     [HttpGet]
     public async Task<ActionResult<MenuDay>> Day()
     {
