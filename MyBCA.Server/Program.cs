@@ -52,7 +52,8 @@ var app = builder.Build();
 
 var rewriteOptions = new RewriteOptions()
     .AddRedirect("^h$", "NewTab", (int)HttpStatusCode.MovedPermanently)
-    .AddRedirect("^busapp$", "Bus/List", (int)HttpStatusCode.MovedPermanently);
+    .AddRedirect("^busapp$", "Bus/List", (int)HttpStatusCode.MovedPermanently)
+    .AddRedirect("^busapp/$", "Bus/List", (int)HttpStatusCode.MovedPermanently);
 app.UseRewriter(rewriteOptions);
 
 app.UseExceptionHandler("/error");
