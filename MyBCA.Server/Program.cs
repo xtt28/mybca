@@ -112,4 +112,6 @@ app.MapControllerRoute(
     .WithStaticAssets();
 app.MapControllers();
 
+app.UseCors();
+
 app.Run();
