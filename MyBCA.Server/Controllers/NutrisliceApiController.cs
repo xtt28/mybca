@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBCA.Shared.Models.Nutrislice;
 using MyBCA.Shared.Models.Nutrislice.Responses;
 using MyBCA.Server.Services.Nutrislice;
+using Microsoft.AspNetCore.Cors;
 
 namespace MyBCA.Server.Controllers;
 
@@ -10,6 +11,7 @@ namespace MyBCA.Server.Controllers;
 public class LunchApiController(INutrisliceService menuService) : ControllerBase
 {
     [EndpointSummary("Retrieves the lunch menu for the week")]
+    [EnableCors]
     [HttpGet]
     public async Task<ActionResult<MenuWeek>> Week()
     {
@@ -18,6 +20,7 @@ public class LunchApiController(INutrisliceService menuService) : ControllerBase
     }
 
     [EndpointSummary("Retrieves the lunch menu for the day")]
+    [EnableCors]
     [HttpGet]
     public async Task<ActionResult<MenuDay>> Day()
     {
