@@ -13,7 +13,7 @@ public class LinkApiController(ILinkService linkService) : ControllerBase
 {
     [EndpointSummary("Retrieves a list of quick links to key BCA services")]
     [HttpGet]
-    public ActionResult<IEnumerable<Link>> GetLinks()
+    public ActionResult<LinkApiResponse> GetLinks()
     {
         var links = linkService.GetLinks();
         return Ok(new LinkApiResponse(links.Count(), links));
