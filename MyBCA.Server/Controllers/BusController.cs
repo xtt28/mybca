@@ -32,6 +32,13 @@ public class BusController(IBusService busService) : Controller
         return View(new BusListTemplate(favoriteLocs, locationsList, busService.Expiry, busService.SourceUrl));
     }
 
+    public async Task<IActionResult> Inspector()
+    {
+        var locationsList = (await busService.GetPositionsAsync()).ToList();
+
+        return View(new BusInspectorTemplate(locationsList, busService.Expiry, busService.SourceUrl));
+    }
+
     [HttpPost]
     public IActionResult AddFavorite(string name)
     {

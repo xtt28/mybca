@@ -1,0 +1,74 @@
+@{
+    ; Layout = null; ;
+}
+
+@model MyBCA.Server.Models.Bus.Responses.BusInspectorTemplate
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex">
+    <title>Bus inspection - myBCA</title>
+    <script type="importmap"></script>
+</head>
+
+<body>
+    <header>
+        <hgroup>
+            <h1>myBCA Bus Inspector</h1>
+        </hgroup>
+    </header>
+    <main>
+        <section>
+            <h2>Metadata</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Key</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Source</td>
+                        <td>@Model.SourceUrl</td>
+                    </tr>
+                    <tr>
+                        <td>Expiry</td>
+                        <td>@Model.Expiry</td>
+                    </tr>
+                    <tr>
+                        <td>Count</td>
+                        <td>@Model.Positions.Count()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Bus Positions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Bus Name</th>
+                        <th scope="col">Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var position in Model.Positions)
+                    {
+                        <tr>
+                            <td>@position.Town</td>
+                            <td>@position.Location</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+
+</html>
+
